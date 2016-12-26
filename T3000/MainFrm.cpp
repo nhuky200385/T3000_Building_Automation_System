@@ -348,7 +348,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
     ON_COMMAND(ID_DATABASE_BACNETTOOL, &CMainFrame::OnDatabaseBacnettool)
     ON_COMMAND(ID_CONTROL_ALARM_LOG, &CMainFrame::OnControlAlarmLog)
     ON_COMMAND(ID_Menu_CHECKUPDATE, &CMainFrame::OnMenuCheckupdate)
-  //  ON_COMMAND(ID_DATABASE_PV, &CMainFrame::OnDatabasePv)
+    ON_COMMAND(ID_DATABASE_PV, &CMainFrame::OnDatabasePv)
     ON_COMMAND(ID_CONTROL_TSTAT, &CMainFrame::OnControlTstat)
 
 
@@ -11789,7 +11789,8 @@ void CMainFrame::OnControlWeekly()
 void CMainFrame::OnControlAnnualroutines()
 {
     // TODO: Add your command handler code here
-
+	AnnualRout_InsertDia Dlg;
+	Dlg.DoModal();
 	 
     if((g_protocol == PROTOCOL_BACNET_IP) || (g_protocol == MODBUS_BACNET_MSTP) || (g_protocol == PROTOCOL_BIP_TO_MSTP))
     {
@@ -12372,26 +12373,26 @@ void CMainFrame::OnMenuCheckupdate()
     dlg.DoModal();
 }
 
-
-// void CMainFrame::OnDatabasePv()
-// {
-//     // TODO: Add your command handler code here
-//     //AfxMessageBox(_T("Developing....."));
-//     //return;
-//     CLoginDlg Dlg(g_buser_log_in);
-//     if (IDOK== Dlg.DoModal())
-//     {
-//         CPVDlg dlg;
-//         dlg.DoModal();
-//     }
-//     else
-//     {
-//         AfxMessageBox(_T("Loging.....fail!"));
-//     }
-// 
-// 
-// 
-// }
+#include "PVDlg.h"
+ void CMainFrame::OnDatabasePv()
+ {
+     // TODO: Add your command handler code here
+     //AfxMessageBox(_T("Developing....."));
+     //return;
+     CLoginDlg Dlg(g_buser_log_in);
+     if (IDOK== Dlg.DoModal())
+     {
+         CPVDlg dlg;
+         dlg.DoModal();
+     }
+     else
+     {
+         AfxMessageBox(_T("Loging.....fail!"));
+     }
+ 
+ 
+ 
+ }
 
 
 //Add by Fance 14/05/21
