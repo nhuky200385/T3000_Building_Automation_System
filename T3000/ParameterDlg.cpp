@@ -323,6 +323,7 @@ BEGIN_MESSAGE_MAP(CParameterDlg, CDialog)
 		ON_CBN_SELCHANGE(IDC_COMBO_MRD, &CParameterDlg::OnCbnSelchangeComboMrd)
 		ON_BN_CLICKED(IDC_BUTTON_APPLY_ALL, &CParameterDlg::OnBnClickedButtonApplyAll)
 		ON_BN_CLICKED(IDC_BUTTON_ZIGBEE, &CParameterDlg::OnBnClickedButtonZigbee)
+		ON_EN_KILLFOCUS(IDC_EDIT_SHOWID, &CParameterDlg::OnEnKillfocusEditShowid)
 		END_MESSAGE_MAP()
 
 
@@ -6000,4 +6001,19 @@ void CParameterDlg::OnBnClickedButtonZigbee()
 	CZigbeeInformationDlg dlg;
 	dlg.DoModal();
 	 
+}
+
+
+void CParameterDlg::OnEnKillfocusEditShowid()
+{
+	CString deadmaster;
+	GetDlgItem(IDC_EDIT_SHOWID)->GetWindowText(deadmaster);
+	int deadmastervalue = _wtoi(deadmaster.GetBuffer());
+	/*if (product_register_value[242] == deadmastervalue)
+	{
+		return;
+	}*/
+
+	Post_Thread_Message(MY_WRITE_ONE, g_tstat_id, 725, deadmastervalue,
+		product_register_value[725], this->m_hWnd, IDC_EDIT_SHOWID, _T("Show Modbus ID(Min)"));
 }

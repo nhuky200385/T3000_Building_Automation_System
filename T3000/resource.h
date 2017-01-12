@@ -2146,6 +2146,9 @@
 #define IDC_EDIT_MSTP_MAC               2275
 #define IDC_STATIC_MAC_MSTP             2276
 #define IDC_STATIC_MSTP_MODBUS          2277
+#define IDC_PRODUCTNAME_EDITOR          2278
+#define IDC_EDIT_SHOWID                 2279
+#define IDC_CHECK_READ                  2284
 #define IDC_BUTTON_MODEL11              3000
 #define IDC_BUTTON_MODEL1               3000
 #define IDC_BUTTON_MODEL12              3001
@@ -2580,6 +2583,7 @@
 #define ID_TOOLS_PSYCHROMETRY           34055
 #define ID_TOOLS_OPTION                 34056
 #define ID_PROPERTIES_GOTODEFINITION    34057
+#define ID_TOOLS_LOADSDCARDFILE         34058
 #define ID_HELP_USING_UPDATE            34904
 #define ID_DATABASE_BACNETTOOL          34905
 #define IDD_DIALOG_BACNET_PROGRAM       34906
@@ -2653,9 +2657,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        659
-#define _APS_NEXT_COMMAND_VALUE         34058
-#define _APS_NEXT_CONTROL_VALUE         2278
+#define _APS_NEXT_RESOURCE_VALUE        664
+#define _APS_NEXT_COMMAND_VALUE         34059
+#define _APS_NEXT_CONTROL_VALUE         2285
 #define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif

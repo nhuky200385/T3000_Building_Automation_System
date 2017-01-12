@@ -95,7 +95,11 @@ INPUT int Write_One_tap(unsigned char device_var,unsigned short address,unsigned
 INPUT int Read_One_tap(unsigned char device_var,unsigned short address);
 INPUT int write_multi_tap(unsigned char device_var,unsigned char *to_write,unsigned short start_address,int length);
 INPUT int read_multi_tap(unsigned char device_var,unsigned short *put_data_into_here,unsigned short start_address,int length);
-INPUT int Modbus_Standard_Read(unsigned char device_var, unsigned short *put_data_into_here, int function_code,unsigned short start_address, int length);
+INPUT int Modbus_Standard_Read(unsigned char device_var, unsigned short *put_data_into_here, int function_code, unsigned short start_address, int length,
+	unsigned char *put_senddate_into_here,
+	unsigned char *put_revdata_into_here,
+	int* sendDataLength, int* recvDataLength
+);
 INPUT bool open_com(int m_com);
 INPUT void close_com();
 INPUT bool is_connect();
@@ -120,8 +124,6 @@ INPUT int NetController_CheckTstatOnline_a(unsigned char  devLo,unsigned char  d
 //INPUT int NetController_CheckTstatOnline2_a(unsigned char  devLo,unsigned char  devHi, bool bComm_Type);
 INPUT int CheckTstatOnline_a(unsigned char  devLo,unsigned char devHi, bool bComm_Type);
 //INPUT int CheckTstatOnline2_a(unsigned char  devLo,unsigned char  devHi, bool bComm_Type);
-INPUT int MINI_CheckTstatOnline_a(unsigned char devLo,unsigned char devHi, bool bComm_Type,int NET_COM=1);
-//INPUT int MINI_CheckTstatOnline2_a(unsigned char devLo,unsigned char devHi, bool bComm_Type,int NET_COM=1);
 
 INPUT int Read_One2(unsigned char  device_var,unsigned short  address, bool bComm_Type);
 INPUT int Write_One2(unsigned char  device_var,unsigned short  address,unsigned short  value, bool bComm_Type);
@@ -133,11 +135,6 @@ INPUT void write_T3000_log_file( CString StrTips);//scan
 INPUT void Create_T3000_log_file();//scan
 
 INPUT CString Get_NowTime();
-
-
-//INPUT void NET_WriteLogFile(CString strlog);
-//INPUT void //NET_CloseLogFile();
-
 INPUT int Write_One(unsigned char device_var,unsigned short address,unsigned short value);
 INPUT int Read_One(unsigned char device_var,unsigned short address);
 INPUT int write_multi(unsigned char device_var,unsigned char *to_write,unsigned short start_address,int length);
@@ -148,19 +145,8 @@ INPUT int Write_One_log(unsigned char device_var,unsigned short address,unsigned
 INPUT int read_multi_log(unsigned char device_var,unsigned short *put_data_into_here,unsigned short start_address,int length,unsigned char *put_senddate_into_here,unsigned char *put_revdata_into_here, int* sendDataLength, int* recvDataLength);
 INPUT int write_multi_log(unsigned char device_var,unsigned char *to_write,unsigned short start_address,int length,unsigned char *put_senddate_into_here,unsigned char *put_revdata_into_here, int* sendDataLength, int* recvDataLength);
 INPUT void SetResponseTime(unsigned short Time);
-//INPUT HANDLE Open_Testo_USB();
-/*INPUT int ReadTestoDeviceData(float reveivevalue[]);*/
-//INPUT SOCKET GetSocketHandle();
+
 #include <stdint.h>
-//INPUT bool Device_Set_Object_Instance_Number(
-//	uint32_t object_id);
-//
-//INPUT   void address_init(void);
-//INPUT	int Get_transfer_length();
-//INPUT	void Set_transfer_length(int data);
-//INPUT   bool tsm_invoke_id_free(uint8_t invokeID);
-
-
 //#include "modbus.h"
 #include <vector>  // STL vector header. There is no ".h"
 #include <afxdhtml.h>

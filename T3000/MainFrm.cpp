@@ -348,7 +348,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
     ON_COMMAND(ID_DATABASE_BACNETTOOL, &CMainFrame::OnDatabaseBacnettool)
     ON_COMMAND(ID_CONTROL_ALARM_LOG, &CMainFrame::OnControlAlarmLog)
     ON_COMMAND(ID_Menu_CHECKUPDATE, &CMainFrame::OnMenuCheckupdate)
-    ON_COMMAND(ID_DATABASE_PV, &CMainFrame::OnDatabasePv)
+  //  ON_COMMAND(ID_DATABASE_PV, &CMainFrame::OnDatabasePv)
     ON_COMMAND(ID_CONTROL_TSTAT, &CMainFrame::OnControlTstat)
 
 
@@ -407,7 +407,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_HELP_USING_UPDATE, &CMainFrame::OnHelpUsingUpdate)
 
 	 ON_MESSAGE(6677,PingDevice)
-	END_MESSAGE_MAP()
+		 
+		END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
@@ -3714,7 +3715,7 @@ void CMainFrame::OnLoadConfigFile()
         return;
     }
 	else if(((g_protocol == MODBUS_RS485) || (g_protocol ==MODBUS_TCPIP)) &&  
-		((bacnet_device_type == T38AI8AO6DO) || (bacnet_device_type == PID_T322AI) || (bacnet_device_type == PWM_TRANSDUCER)))
+		((bacnet_device_type == T38AI8AO6DO) || (bacnet_device_type == PID_T322AI) || (bacnet_device_type == PID_T3PT12) || (bacnet_device_type == PWM_TRANSDUCER)))
 	{
 		CFileDialog dlg(true,_T("*.prg"),_T(" "),OFN_HIDEREADONLY ,_T("Prg files (*.prg)|*.prg||"),NULL,0);
 		if(IDOK!=dlg.DoModal())
@@ -6403,7 +6404,7 @@ void CMainFrame::SaveConfigFile()
         return;
     }
 	else if(((g_protocol == MODBUS_RS485) || (g_protocol ==MODBUS_TCPIP)) &&  
-		    ((bacnet_device_type == T38AI8AO6DO) || (bacnet_device_type == PID_T322AI) || (bacnet_device_type == PWM_TRANSDUCER)))
+		    ((bacnet_device_type == T38AI8AO6DO) || (bacnet_device_type == PID_T322AI) || (bacnet_device_type == PID_T3PT12) || (bacnet_device_type == PWM_TRANSDUCER)))
 	{
 		//T3的设备支持minipanel的 input output 就读10000以后的寄存器;
 		MainFram_hwd = this->m_hWnd;
@@ -11789,8 +11790,9 @@ void CMainFrame::OnControlWeekly()
 void CMainFrame::OnControlAnnualroutines()
 {
     // TODO: Add your command handler code here
-	AnnualRout_InsertDia Dlg;
-	Dlg.DoModal();
+	AnnualRout_InsertDia dlg;
+	dlg.DoModal();
+	return;
 	 
     if((g_protocol == PROTOCOL_BACNET_IP) || (g_protocol == MODBUS_BACNET_MSTP) || (g_protocol == PROTOCOL_BIP_TO_MSTP))
     {
@@ -12373,26 +12375,26 @@ void CMainFrame::OnMenuCheckupdate()
     dlg.DoModal();
 }
 
-#include "PVDlg.h"
- void CMainFrame::OnDatabasePv()
- {
-     // TODO: Add your command handler code here
-     //AfxMessageBox(_T("Developing....."));
-     //return;
-     CLoginDlg Dlg(g_buser_log_in);
-     if (IDOK== Dlg.DoModal())
-     {
-         CPVDlg dlg;
-         dlg.DoModal();
-     }
-     else
-     {
-         AfxMessageBox(_T("Loging.....fail!"));
-     }
- 
- 
- 
- }
+
+// void CMainFrame::OnDatabasePv()
+// {
+//     // TODO: Add your command handler code here
+//     //AfxMessageBox(_T("Developing....."));
+//     //return;
+//     CLoginDlg Dlg(g_buser_log_in);
+//     if (IDOK== Dlg.DoModal())
+//     {
+//         CPVDlg dlg;
+//         dlg.DoModal();
+//     }
+//     else
+//     {
+//         AfxMessageBox(_T("Loging.....fail!"));
+//     }
+// 
+// 
+// 
+// }
 
 
 //Add by Fance 14/05/21
@@ -15302,5 +15304,5 @@ void CMainFrame::OnToolsOption()
 {
 	 CT3000Option dlg;
 	 dlg.DoModal();
-	 
 }
+

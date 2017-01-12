@@ -699,9 +699,6 @@
     <ClCompile Include="BTUMeterDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PVDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="OutputTableDlg.htm">
@@ -1739,9 +1736,6 @@
     </ClInclude>
     <ClInclude Include="BTUMeterDlg.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PVDlg.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,8 +19,6 @@
 #include "T3000DefaultView.h"
 #include "bado/BADO.h"
 #include "../SQLiteDriver/CppSQLite3.h"
-
-#include "../MultipleMonthCal32/MultipleMonthCalCtrl.h"
  
 const int g_versionNO=20161205;
 
@@ -43,8 +41,8 @@ END_MESSAGE_MAP()
 CT3000App::CT3000App()
 {
 	m_bHiColorIcons = TRUE;
-	CurrentT3000Version=_T("    2016.12.16 ");
-	T3000_Version = 11216;
+	CurrentT3000Version=_T("    2017.01.06 ");
+	T3000_Version = 20106;
 
 
 	m_lastinterface=19;
@@ -288,7 +286,6 @@ BOOL CT3000App::InitInstance()
 	//TODO: call AfxInitRichEdit2() to initialize richedit2 library.
 	try
 	{
-		CMultipleMonthCalCtrl::RegisterControl();
 		// InitCommonControlsEx() is required on Windows XP if an application
 		// manifest specifies use of ComCtl32.dll version 6 or later to enable
 		// visual styles.  Otherwise, any window creation will fail.

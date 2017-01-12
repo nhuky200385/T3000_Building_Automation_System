@@ -254,4 +254,5 @@ public:
 	CComboBox m_combox_mrd;
 	afx_msg void OnBnClickedButtonApplyAll();
 	afx_msg void OnBnClickedButtonZigbee();
+	afx_msg void OnEnKillfocusEditShowid();
 };

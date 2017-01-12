@@ -1800,7 +1800,12 @@ int handle_read_monitordata_ex(char *npoint,int nlength)
 
 		CString Label_Des;
 		CString temp_type;
-		temp_type.Format(_T("%u_%u_%u_%u_%u"),temp_data.point.number,temp_data.point.point_type,temp_data.point.panel,temp_data.point.sub_panel,temp_data.point.network);
+		temp_type.Format(_T("%u_%u_%u_%u_%u"),
+			temp_data.point.number,
+			temp_data.point.point_type,
+			temp_data.point.panel,
+			temp_data.point.sub_panel,
+			temp_data.point.network);
 		CString temp_type_word;
 		if(temp_data.point.point_type == 1)
 		{
@@ -1870,7 +1875,14 @@ int handle_read_monitordata_ex(char *npoint,int nlength)
 		//updateTime.Format(_T("%Y-%m-%d %H:%M:%S"));
 
 		CString strSql;
-		strSql.Format(_T("insert into MonitorData values('%s',#%s#,%u,%d,%u,%u,'%s')"),temp_type,display_time,temp_data.time,temp_data.value,  analog_data ,temp_flag,Label_Des);
+		strSql.Format(_T("insert into MonitorData values('%s',#%s#,%u,%d,%u,%u,'%s')"),
+			temp_type,
+			display_time,
+			temp_data.time,
+			temp_data.value,  
+			analog_data ,
+			temp_flag,
+			Label_Des);
 		//strSql.Format(_T("insert into MonitorData values('%s',%d,%u,%u,%u,'%s','%s')"),temp_type,temp_data.value,temp_data.time , analog_data ,temp_flag,display_time,Label_Des);
 		monitor_bado.m_pConnection->Execute(strSql.GetString(),NULL,adCmdText);	
 
