@@ -19,6 +19,7 @@
 #include "T3000DefaultView.h"
 #include "bado/BADO.h"
 #include "../SQLiteDriver/CppSQLite3.h"
+#include "../MultipleMonthCal32/MultipleMonthCalCtrl.h"
  
 const int g_versionNO=20161205;
 
@@ -297,7 +298,7 @@ BOOL CT3000App::InitInstance()
 		InitCommonControlsEx(&InitCtrls);
 
 		Create_T3000_log_file();
-
+		CMultipleMonthCalCtrl::RegisterControl();
 
 		BOOL First_Start=TRUE;
 

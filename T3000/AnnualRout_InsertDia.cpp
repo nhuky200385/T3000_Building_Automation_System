@@ -49,6 +49,7 @@ void AnnualRout_InsertDia::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MONTHCALENDAR1, m_month_ctrl);
 	//DDX_Control(pDX, IDC_MONTHVIEW1, m_monthViewCtrl);
 	DDX_Control(pDX, IDC_COMBO1, m_yearComBox);
+	m_month_ctrl.SetOriginalColors();
 }
 
 
@@ -72,7 +73,6 @@ END_MESSAGE_MAP()
 // AnnualRout_InsertDia 消息处理程序
 void AnnualRout_InsertDia::leap_year()//if the year is leap year,get the holiday by this function
 {
-
 	CString str;
 	int i=0;
 	for(i=0;i<366;i++)
@@ -141,8 +141,8 @@ void AnnualRout_InsertDia::leap_year()//if the year is leap year,get the holiday
 		m=i%8;//bit day
 		for(int j=0;j<m;j++)
 			l*=2;
-		if(the_days[i/8] & l)/////////////////////
-			set_day_state(str);
+		//if(the_days[i/8] & l)/////////////////////
+		//	set_day_state(str);
 	}
 }
 void AnnualRout_InsertDia::no_leap_year()//if the year is not a leap year,get the holiday by this function
@@ -152,6 +152,7 @@ void AnnualRout_InsertDia::no_leap_year()//if the year is not a leap year,get th
 	int i=0;
 	for(i=0;i<365;i++)
 	{
+
 		if(i<31)
 		{//january 31
 			str.Format(_T("%d"),i+1);
@@ -216,14 +217,15 @@ void AnnualRout_InsertDia::no_leap_year()//if the year is not a leap year,get th
 		m=i%8;//bit day
 		for(int j=0;j<m;j++)
 			l*=2;
-		if(the_days[i/8] & l)/////////////////////
-			set_day_state(str);
+		//if(the_days[i/8] & l)/////////////////////
+		//	set_day_state(str);
 	}
 }
 
 void AnnualRout_InsertDia::load()
 {
-	set_day_state(TO_CLEAR_MONTH_CTRL);//clear month ctrl	
+
+	//set_day_state(TO_CLEAR_MONTH_CTRL);//clear month ctrl	
 	if (m_offline)
 	{
 		for (int i=0;i<ONE_YEAR_BETYS;i++)
@@ -296,6 +298,68 @@ void AnnualRout_InsertDia::load()
 	//SetPaneString(RIGHT_BUTTON_MENU_MESSAGE);
 }
 
+void    CalculateDayOfWeek(SYSTEMTIME *date)
+{
+	SYSTEMTIME st = *date;
+	FILETIME ft;
+
+	SystemTimeToFileTime(&st, &ft);
+	FileTimeToSystemTime(&ft, &st);
+    
+	date->wDayOfWeek = st.wDayOfWeek;
+}
+
+/* returns the number of days in any given month, checking for leap days */
+/* January is 1, December is 12 */
+int    MonthLength(int month, int year)
+{
+	const int mdays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	/* Wrap around, this eases handling. Getting length only we shouldn't care
+	about year change here cause January and December have
+	the same day quantity */
+	if (month == 0)
+		month = 12;
+	else if (month == 13)
+		month = 1;
+
+
+	/* if we have a leap year add 1 day to February */
+	/* a leap year is a year either divisible by 400 */
+	/* or divisible by 4 and not by 100 */
+	if (month == 2) { /* February */
+		return mdays[month - 1] + ((year % 400 == 0) ? 1 : ((year % 100 != 0) &&
+			(year % 4 == 0)) ? 1 : 0);
+	}
+	else {
+		return mdays[month - 1];
+	}
+}
+
+//Default - sunday
+std::vector<SYSTEMTIME>   GetAllYearDaysForDayOfWeek(int yaer, int dayOfWeek = 0)
+{
+	std::vector<SYSTEMTIME> days;
+
+	SYSTEMTIME systime;
+	::GetSystemTime(&systime);
+	SYSTEMTIME date = systime;
+	date.wYear = 2017;
+	for (int i = 0; i < 12; ++i)
+	{
+		date.wMonth = 1 + i;
+		int length = MonthLength(date.wMonth, date.wYear);
+		for (int j = 0; j < length; ++j)
+		{
+			date.wDay = 1 + j;
+			CalculateDayOfWeek(&date);
+			if (date.wDayOfWeek == 0)
+				days.push_back(date);
+		}
+	}
+
+	return days;
+}
+
 BOOL AnnualRout_InsertDia::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -305,6 +369,9 @@ BOOL AnnualRout_InsertDia::OnInitDialog()
 	 
 	GetDlgItem(IDC_STATIC)->ShowWindow(0);
 	GetDlgItem(IDOK)->ShowWindow(0);
+
+	//Select all sunday days for selected year 
+	m_month_ctrl.SelectDates(GetAllYearDaysForDayOfWeek(2017, 0));
 
 	CTime temp_time =  CTime::GetCurrentTime();
 	unsigned short this_year = temp_time.GetYear();
@@ -770,6 +837,7 @@ void AnnualRout_InsertDia::OnAnnualroutClear()
 	// TODO: 在此添加命令处理程序代码
 	if(IDOK==MessageBox(_T("Clear All?"),_T("CLEAR"),MB_OKCANCEL))
 	{
+		m_month_ctrl.UnselectAll();
 		unsigned char ttt[ONE_YEAR_BETYS];
 		for(int i=0;i<ONE_YEAR_BETYS;i++)
 			ttt[i]=0;
