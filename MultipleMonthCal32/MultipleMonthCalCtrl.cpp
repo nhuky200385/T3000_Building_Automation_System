@@ -101,7 +101,8 @@ BOOL CMultipleMonthCalCtrl::SetDayState(int count, MONTHDAYSTATE* states)
 	GetMonthRange(&start, &end, GMR_DAYSTATE);
 	SelectDates(ToSystemTimeVector(count, states, start));
 
-	return TRUE;
+	return CMonthCalCtrl::SetDayState(count, states);
+	//return TRUE;
 }
 
 BEGIN_MESSAGE_MAP(CMultipleMonthCalCtrl, CMonthCalCtrl)
