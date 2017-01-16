@@ -99,7 +99,7 @@ BOOL CMultipleMonthCalCtrl::SetDayState(int count, MONTHDAYSTATE* states)
 {
 	SYSTEMTIME start, end;
 	GetMonthRange(&start, &end, GMR_DAYSTATE);
-	SelectDates(ToSystemTimeVector(count, states, start));
+	SelectDates(ToSystemTimes(count, states, start));
 
 	return CMonthCalCtrl::SetDayState(count, states);
 	//return TRUE;
@@ -130,7 +130,7 @@ int     getDifference(const SYSTEMTIME & start, const SYSTEMTIME & end)
 	return ((int)(end.wYear * 12) + end.wMonth) - ((int)(start.wYear * 12) + start.wMonth);
 }
 
-std::vector<SYSTEMTIME> ToSystemTimeVector(int monthCount, MONTHDAYSTATE * states, const SYSTEMTIME & start)
+std::vector<SYSTEMTIME> ToSystemTimes(int monthCount, MONTHDAYSTATE * states, const SYSTEMTIME & start)
 {
 	std::vector<SYSTEMTIME> days;
 
