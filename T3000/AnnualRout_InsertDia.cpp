@@ -9,6 +9,7 @@
 #include "schedule.h"
 #include "globle_function.h"
 #include "Schedule_grid.h"
+#include "../MultipleMonthCal32/multiplemonthcal.h"
 
 // AnnualRout_InsertDia ¶Ô»°¿ò
 #define TO_CLEAR_MONTH_CTRL _T("clear")
@@ -919,10 +920,19 @@ LRESULT  AnnualRout_InsertDia::DayResumeMessageCallBack(WPARAM wParam, LPARAM lP
 
 void AnnualRout_InsertDia::OnMcnSelectBacMonthcalendar(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMSELCHANGE pSelChange = reinterpret_cast<LPNMSELCHANGE>(pNMHDR);
+	//Exchanged selection handler
+	LPNMSELCHANGEEX pSelChange = reinterpret_cast<LPNMSELCHANGEEX>(pNMHDR);
 	// TODO: Add your control notification handler code here
-	int Clicked_month = pSelChange->stSelStart.wMonth;
-	int Clicked_day = pSelChange->stSelStart.wDay;
+
+	//Get last selected item
+	LPSELECTION_ITEM current = pSelChange->selectionInfo.first;
+	while(current->next)
+	{
+		current = current->next;
+	}
+
+	int Clicked_month = current->date.wMonth;
+	int Clicked_day = current->date.wDay;
 	if (m_offline)
 	{
 		CString str;
