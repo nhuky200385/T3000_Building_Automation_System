@@ -19,7 +19,6 @@
 #include "T3000DefaultView.h"
 #include "bado/BADO.h"
 #include "../SQLiteDriver/CppSQLite3.h"
-#include "../MultipleMonthCal32/MultipleMonthCalCtrl.h"
  
 const int g_versionNO=20161205;
 
@@ -298,7 +297,7 @@ BOOL CT3000App::InitInstance()
 		InitCommonControlsEx(&InitCtrls);
 
 		Create_T3000_log_file();
-		CMultipleMonthCalCtrl::RegisterControl();
+
 
 		BOOL First_Start=TRUE;
 
@@ -857,7 +856,7 @@ BOOL CT3000App::InitInstance()
 		m_pMainWnd->SetWindowText(strTile);//
 		m_pMainWnd->ShowWindow(SW_SHOW);
 		m_pMainWnd->UpdateWindow();
-	   ((CMainFrame*)m_pMainWnd)->SwitchToPruductType(DLG_DIALOG_DEFAULT_BUILDING); 
+	 //  ((CMainFrame*)m_pMainWnd)->SwitchToPruductType(DLG_DIALOG_DEFAULT_BUILDING); 
 
        m_szAppPath  = g_strExePth;
        m_szHelpFile = theApp.m_szAppPath + L"T3000_Help.chm";

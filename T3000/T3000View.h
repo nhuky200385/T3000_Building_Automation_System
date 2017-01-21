@@ -299,6 +299,7 @@ public:
      CToolTipCtrl m_tooltips;
      afx_msg void OnEnKillfocusDayEdit();
      
+	 BOOL m_offline;
      //afx_msg void OnBnClickedTestSlider();
 };
 
