@@ -81,7 +81,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>setupapi.lib;$(SolutionDir)SQLiteDriver\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>setupapi.lib;MultipleMonthCal32.lib;$(SolutionDir)SQLiteDriver\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\T3000 Output\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -115,7 +115,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>setupapi.lib.;$(SolutionDir)SQLiteDriver\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>setupapi.lib;MultipleMonthCal32.lib.;$(SolutionDir)SQLiteDriver\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\T3000 Output\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ISP\MyPing.cpp" />
     <ClCompile Include="..\SQLiteDriver\CppSQLite3.cpp" />
     <ClCompile Include="AddBuilding.cpp" />
     <ClCompile Include="AfxMessageDialog.cpp" />
@@ -705,17 +706,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="T3000.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BacNetDllforVc\BACnet Stack Library.vcxproj">
-      <Project>{e9a65567-b028-4278-881d-674604b2e126}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FlexSlideBar\FlexSlideBar.vcxproj">
-      <Project>{9560ebea-eb58-44f6-bb62-189833713fc0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ModbusDllforVc\ModbusDllforVc\ModbusDllforVc.vcxproj">
-      <Project>{86c4a754-63f3-44a8-949d-e01d4faca97a}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

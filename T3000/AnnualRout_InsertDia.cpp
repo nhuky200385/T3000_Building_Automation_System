@@ -9,6 +9,7 @@
 #include "schedule.h"
 #include "globle_function.h"
 #include "Schedule_grid.h"
+#include "../MultipleMonthCal32/multiplemonthcal.h"
 
 // AnnualRout_InsertDia 对话框
 #define TO_CLEAR_MONTH_CTRL _T("clear")
@@ -49,6 +50,7 @@ void AnnualRout_InsertDia::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MONTHCALENDAR1, m_month_ctrl);
 	//DDX_Control(pDX, IDC_MONTHVIEW1, m_monthViewCtrl);
 	DDX_Control(pDX, IDC_COMBO1, m_yearComBox);
+	m_month_ctrl.SetOriginalColors();
 }
 
 
@@ -72,7 +74,6 @@ END_MESSAGE_MAP()
 // AnnualRout_InsertDia 消息处理程序
 void AnnualRout_InsertDia::leap_year()//if the year is leap year,get the holiday by this function
 {
-
 	CString str;
 	int i=0;
 	for(i=0;i<366;i++)
@@ -152,6 +153,7 @@ void AnnualRout_InsertDia::no_leap_year()//if the year is not a leap year,get th
 	int i=0;
 	for(i=0;i<365;i++)
 	{
+
 		if(i<31)
 		{//january 31
 			str.Format(_T("%d"),i+1);
@@ -223,6 +225,7 @@ void AnnualRout_InsertDia::no_leap_year()//if the year is not a leap year,get th
 
 void AnnualRout_InsertDia::load()
 {
+
 	set_day_state(TO_CLEAR_MONTH_CTRL);//clear month ctrl	
 	if (m_offline)
 	{
@@ -305,6 +308,9 @@ BOOL AnnualRout_InsertDia::OnInitDialog()
 	 
 	GetDlgItem(IDC_STATIC)->ShowWindow(0);
 	GetDlgItem(IDOK)->ShowWindow(0);
+
+	//Select all sunday days for selected year 
+	//m_month_ctrl.SelectDates(GetAllYearDaysForDayOfWeek(2017, 0));
 
 	CTime temp_time =  CTime::GetCurrentTime();
 	unsigned short this_year = temp_time.GetYear();
@@ -770,6 +776,7 @@ void AnnualRout_InsertDia::OnAnnualroutClear()
 	// TODO: 在此添加命令处理程序代码
 	if(IDOK==MessageBox(_T("Clear All?"),_T("CLEAR"),MB_OKCANCEL))
 	{
+		m_month_ctrl.UnselectAll();
 		unsigned char ttt[ONE_YEAR_BETYS];
 		for(int i=0;i<ONE_YEAR_BETYS;i++)
 			ttt[i]=0;
@@ -913,10 +920,19 @@ LRESULT  AnnualRout_InsertDia::DayResumeMessageCallBack(WPARAM wParam, LPARAM lP
 
 void AnnualRout_InsertDia::OnMcnSelectBacMonthcalendar(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMSELCHANGE pSelChange = reinterpret_cast<LPNMSELCHANGE>(pNMHDR);
+	//Exchanged selection handler
+	LPNMSELCHANGEEX pSelChange = reinterpret_cast<LPNMSELCHANGEEX>(pNMHDR);
 	// TODO: Add your control notification handler code here
-	int Clicked_month = pSelChange->stSelStart.wMonth;
-	int Clicked_day = pSelChange->stSelStart.wDay;
+
+	//Get last selected item
+	LPSELECTION_ITEM current = pSelChange->selectionInfo.first;
+	while(current->next)
+	{
+		current = current->next;
+	}
+
+	int Clicked_month = current->date.wMonth;
+	int Clicked_day = current->date.wDay;
 	if (m_offline)
 	{
 		CString str;

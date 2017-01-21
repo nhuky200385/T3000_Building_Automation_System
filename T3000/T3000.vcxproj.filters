@@ -438,6 +438,9 @@
     <ClCompile Include="T3000DefaultView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ISP\MyPing.cpp">
+      <Filter>ClassInfo</Filter>
+    </ClCompile>
     <ClCompile Include="Bacnetaddintodb.cpp">
       <Filter>Bacnet</Filter>
     </ClCompile>
