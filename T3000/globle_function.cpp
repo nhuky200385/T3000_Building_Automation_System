@@ -1,6 +1,6 @@
 
 #include "stdafx.h"
-#include "../ISP/MyPing.h"
+
 #include "globle_function.h"
 #include "Windows.h"
 #include "T3000.h"
@@ -8351,14 +8351,14 @@ BOOL DirectoryExist(CString Path)
 
 BOOL Ping(const CString& strIP, CWnd* pWndEcho)
 {
-    CMyPing* pPing = new CMyPing;
-
-    pPing->SetPingEchoWnd(pWndEcho);
-    pPing->TestPing(strIP);
-
-
-    delete pPing;
-    pPing = NULL;
+//     CMyPing* pPing = new CMyPing;
+// 
+//     pPing->SetPingEchoWnd(pWndEcho);
+//     pPing->TestPing(strIP);
+// 
+// 
+//     delete pPing;
+//     pPing = NULL;
     return FALSE;
 }
 
