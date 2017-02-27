@@ -2149,6 +2149,9 @@
 #define IDC_PRODUCTNAME_EDITOR          2278
 #define IDC_EDIT_SHOWID                 2279
 #define IDC_CHECK_READ                  2284
+#define IDC_SETPOINTS                   2285
+#define IDC_SETPOINTSCONTROL1           2286
+#define IDC_SLIDERCONTROL1              2287
 #define IDC_BUTTON_MODEL11              3000
 #define IDC_BUTTON_MODEL1               3000
 #define IDC_BUTTON_MODEL12              3001
@@ -2659,7 +2662,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        664
 #define _APS_NEXT_COMMAND_VALUE         34059
-#define _APS_NEXT_CONTROL_VALUE         2285
+#define _APS_NEXT_CONTROL_VALUE         2288
 #define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif

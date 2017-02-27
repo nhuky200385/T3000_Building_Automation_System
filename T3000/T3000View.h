@@ -301,6 +301,7 @@ public:
      
 	 BOOL m_offline;
      //afx_msg void OnBnClickedTestSlider();
+	 CWinFormsControl<T3000Controls::SetPointsControl> m_setpoints;
 };
 
 #ifndef _DEBUG  // debug version in T3000View.cpp

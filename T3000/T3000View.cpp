@@ -278,66 +278,67 @@ CT3000View::~CT3000View()
 
 void CT3000View::DoDataExchange(CDataExchange* pDX)
 {
-    CFormView::DoDataExchange(pDX);
-    //	DDX_Text(pDX, IDC_ID_EDIT, m_strIDAddress);
-    DDX_Text(pDX, IDC_ID_EDIT, m_nID);
-    DDX_Text(pDX, IDC_FIRMWARV_EDIT, m_fFirmwareVersion);
-    DDX_Text(pDX, IDC_SERIALNUM_EDIT, m_nSerialNumber);
-    DDX_Text(pDX, IDC_HARDWAREV_EDIT, m_nHardwareVersion);
-    DDX_Text(pDX, IDC_MODEL_EDIT, m_strModelName);
-    DDX_Text(pDX, IDC_TEMPERATURE_EDIT, m_fTemperature);
-    DDX_Control(pDX, IDC_FANSPEEDCOMBO, m_FanComBox);
-    DDX_CBIndex(pDX, IDC_FANSPEEDCOMBO, m_iCurFanSpeed);
-    DDX_Text(pDX, IDC_OVERIDETIME_EDIT, m_nOverrideTime);
-    DDX_Text(pDX, IDC_TIMELEFT_EDIT, m_nTimeLeft);
-    DDX_Text(pDX, IDC_PID1_EDIT, m_nstrPID1);
-    DDX_Text(pDX, IDC_PID2_EDIT, m_nstrPID2);
-    DDX_Control(pDX, IDC_COOL_RADIO, m_CoolCtrl);
-    DDX_Control(pDX, IDC_HEAT_RADIO, m_HeatCtrl);
+	CFormView::DoDataExchange(pDX);
+	//	DDX_Text(pDX, IDC_ID_EDIT, m_strIDAddress);
+	DDX_Text(pDX, IDC_ID_EDIT, m_nID);
+	DDX_Text(pDX, IDC_FIRMWARV_EDIT, m_fFirmwareVersion);
+	DDX_Text(pDX, IDC_SERIALNUM_EDIT, m_nSerialNumber);
+	DDX_Text(pDX, IDC_HARDWAREV_EDIT, m_nHardwareVersion);
+	DDX_Text(pDX, IDC_MODEL_EDIT, m_strModelName);
+	DDX_Text(pDX, IDC_TEMPERATURE_EDIT, m_fTemperature);
+	DDX_Control(pDX, IDC_FANSPEEDCOMBO, m_FanComBox);
+	DDX_CBIndex(pDX, IDC_FANSPEEDCOMBO, m_iCurFanSpeed);
+	DDX_Text(pDX, IDC_OVERIDETIME_EDIT, m_nOverrideTime);
+	DDX_Text(pDX, IDC_TIMELEFT_EDIT, m_nTimeLeft);
+	DDX_Text(pDX, IDC_PID1_EDIT, m_nstrPID1);
+	DDX_Text(pDX, IDC_PID2_EDIT, m_nstrPID2);
+	DDX_Control(pDX, IDC_COOL_RADIO, m_CoolCtrl);
+	DDX_Control(pDX, IDC_HEAT_RADIO, m_HeatCtrl);
 
-    //DDX_Radio(pDX, IDC_OCCUPA_RADIO, m_OcupaCtrl);
-    //DDX_Radio(pDX, IDC_UNOCCUPA_RADIO, m_UnOcupaCtrl);
-    DDX_Check(pDX, IDC_OCCUPACHECK, m_bOccupied);
-    DDX_Control(pDX, IDC_OCCUPACHECK, m_OcupiedBtn);
-    DDX_Text(pDX, IDC_FREECOOLA_EDIT, m_strFreeCool);
-    DDX_Text(pDX, IDC_FREECOOLF_EDIT, m_strFreeCoolFN);
+	//DDX_Radio(pDX, IDC_OCCUPA_RADIO, m_OcupaCtrl);
+	//DDX_Radio(pDX, IDC_UNOCCUPA_RADIO, m_UnOcupaCtrl);
+	DDX_Check(pDX, IDC_OCCUPACHECK, m_bOccupied);
+	DDX_Control(pDX, IDC_OCCUPACHECK, m_OcupiedBtn);
+	DDX_Text(pDX, IDC_FREECOOLA_EDIT, m_strFreeCool);
+	DDX_Text(pDX, IDC_FREECOOLF_EDIT, m_strFreeCoolFN);
 
-    // 	DDX_Control(pDX, IDC_TEMPRETURE_SLIDER, m_TemperaureSlider);
-    // 	DDX_Control(pDX, IDC_DAY_SLIDER, m_daySlider);
-    // 	DDX_Control(pDX, IDC_NIGHT_SLIDER, m_nightSlider);
-    // 	DDX_Control(pDX, IDC_NIGHTHEAT_SLIDER, m_nightHeatSlider);
+	// 	DDX_Control(pDX, IDC_TEMPRETURE_SLIDER, m_TemperaureSlider);
+	// 	DDX_Control(pDX, IDC_DAY_SLIDER, m_daySlider);
+	// 	DDX_Control(pDX, IDC_NIGHT_SLIDER, m_nightSlider);
+	// 	DDX_Control(pDX, IDC_NIGHTHEAT_SLIDER, m_nightHeatSlider);
 
-    DDX_Control(pDX, IDC_TEMPINFO_EDIT, m_TempInfoEdit);
-    DDX_Control(pDX, IDC_DAY_EDIT, m_dayInfoEdit);
-    DDX_Control(pDX, IDC_NIGHT_EDIT, m_nightInfoEdit);
-    DDX_Control(pDX, IDC_NIGHTHEAT_EDIT, m_nightHeatInfoEdit);
-    DDX_Control(pDX, IDC_OUTPUT_MSFLEXGRID, m_Output_Grid);
-    DDX_Control(pDX, IDC_INPUT_MSFLEXGRID, m_Input_Grid);
-    DDX_Control(pDX, IDC_INPUTNAMEEDIT, m_inNameEdt);
-    DDX_Control(pDX, IDC_OUTPUTNAMEEDIT, m_outNameEdt);
-    DDX_Control(pDX, IDC_SETPTSTATIC, m_SetptStatic);
-
-
-
-
-
-    DDX_Control(pDX, IDC_EDIT_DAYCOOL, m_DayCoolEdit);
-    DDX_Control(pDX, IDC_EDIT_DAYHEAT, m_DayHeatEdit);
-    DDX_Control(pDX, IDC_STATIC_DAYCOOL, m_DayCoolStatic);
-    DDX_Control(pDX, IDC_STATIC_DATSP, m_DaySPStatic);
-    DDX_Control(pDX, IDC_STATIC_DAYHEAT, m_DayHeatStatic);
-
-    DDX_Control(pDX, IDC_SLIDER_DAY, m_singlesliderday);
-
-    DDX_Control(pDX, IDC_STATICUNINT, m_gUnit);
-
-
-    DDX_Control(pDX, IDC_EDIT_CUR_SP, m_nightpotEdit);
+	DDX_Control(pDX, IDC_TEMPINFO_EDIT, m_TempInfoEdit);
+	DDX_Control(pDX, IDC_DAY_EDIT, m_dayInfoEdit);
+	DDX_Control(pDX, IDC_NIGHT_EDIT, m_nightInfoEdit);
+	DDX_Control(pDX, IDC_NIGHTHEAT_EDIT, m_nightHeatInfoEdit);
+	DDX_Control(pDX, IDC_OUTPUT_MSFLEXGRID, m_Output_Grid);
+	DDX_Control(pDX, IDC_INPUT_MSFLEXGRID, m_Input_Grid);
+	DDX_Control(pDX, IDC_INPUTNAMEEDIT, m_inNameEdt);
+	DDX_Control(pDX, IDC_OUTPUTNAMEEDIT, m_outNameEdt);
+	DDX_Control(pDX, IDC_SETPTSTATIC, m_SetptStatic);
 
 
 
 
-  /*  DDX_Control(pDX, IDC_STATIC_ISP, m_isp);*/
+
+	DDX_Control(pDX, IDC_EDIT_DAYCOOL, m_DayCoolEdit);
+	DDX_Control(pDX, IDC_EDIT_DAYHEAT, m_DayHeatEdit);
+	DDX_Control(pDX, IDC_STATIC_DAYCOOL, m_DayCoolStatic);
+	DDX_Control(pDX, IDC_STATIC_DATSP, m_DaySPStatic);
+	DDX_Control(pDX, IDC_STATIC_DAYHEAT, m_DayHeatStatic);
+
+	DDX_Control(pDX, IDC_SLIDER_DAY, m_singlesliderday);
+
+	DDX_Control(pDX, IDC_STATICUNINT, m_gUnit);
+
+
+	DDX_Control(pDX, IDC_EDIT_CUR_SP, m_nightpotEdit);
+
+
+
+
+	/*  DDX_Control(pDX, IDC_STATIC_ISP, m_isp);*/
+	DDX_ManagedControl(pDX, IDC_SETPOINTS, m_setpoints);
 }
 
 BOOL CT3000View::PreCreateWindow(CREATESTRUCT& cs)
