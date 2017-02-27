@@ -47,6 +47,7 @@
             this.panel.TopValue = 100F;
             this.panel.TopZone = true;
             this.panel.TopZoneValue = 66F;
+            this.panel.TwoHandleControl = false;
             // 
             // indicator
             // 
@@ -58,9 +59,6 @@
             this.indicator.Size = new System.Drawing.Size(169, 55);
             this.indicator.TabIndex = 1;
             this.indicator.Value = 50F;
-            this.indicator.MouseDown += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseDown);
-            this.indicator.MouseMove += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseMove);
-            this.indicator.MouseUp += new System.Windows.Forms.MouseEventHandler(this.slider1_MouseUp);
             // 
             // SetPointsControl
             // 

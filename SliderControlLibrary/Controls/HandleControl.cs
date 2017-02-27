@@ -68,10 +68,10 @@
 
         #endregion
 
-        public Rectangle HandleRectangle { get; set; }
-        public Rectangle TextRectangle { get; set; }
-        public GraphicsPath HandlePath { get; set; }
-        public GraphicsPath TextPath { get; set; }
+        private Rectangle HandleRectangle { get; set; } = new Rectangle(0,0,0,0);
+        private Rectangle TextRectangle { get; set; } = new Rectangle(0,0,0,0);
+        private GraphicsPath HandlePath { get; set; } = new GraphicsPath();
+        private GraphicsPath TextPath { get; set; } = new GraphicsPath();
 
         public HandleControl()
         {
@@ -103,7 +103,6 @@
                 var rect = HandleRectangle;
                 rect.Inflate(2, -1);
                 graphics.FillRectangle(brush, rect);
-                rect.Inflate(-2, 1);
             }
         }
 
@@ -111,13 +110,13 @@
         {
             base.OnResize(e);
 
-            HandleRectangle = new Rectangle(0, Height / 2 - HandleHeight / 2, HandleWidth + 1, HandleHeight);
-            TextRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth - 1, Height - 1);
+            HandleRectangle = new Rectangle(0, Height / 2 - HandleHeight / 2 - 1, HandleWidth, HandleHeight);
+            TextRectangle = new Rectangle(HandleWidth, 0, Width - HandleWidth - 2, Height - 2);
             HandlePath = GraphicsUtilities.CreateRoundedRectanglePath(HandleRectangle, 4);
             TextPath = GraphicsUtilities.CreateRoundedRectanglePath(TextRectangle, 8);
 
-            Region = new Region(HandlePath);
-            Region.Union(new Region(TextPath));
+            Region = GraphicsUtilities.GetRegionForPath(HandlePath);
+            Region.Union(GraphicsUtilities.GetRegionForPath(TextPath));
         }
     }
 }

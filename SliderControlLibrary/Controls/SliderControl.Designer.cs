@@ -28,53 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath1 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath2 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath3 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath4 = new System.Drawing.Drawing2D.GraphicsPath();
+            this.middleHandle = new T3000Controls.HandleControl();
             this.bottomHandle = new T3000Controls.HandleControl();
             this.topHandle = new T3000Controls.HandleControl();
             this.backgroundControl = new T3000Controls.BackgroundControl();
             this.SuspendLayout();
             // 
+            // middleHandle
+            // 
+            this.middleHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.middleHandle.BackColor = System.Drawing.Color.GreenYellow;
+            this.middleHandle.BorderColor = System.Drawing.Color.White;
+            this.middleHandle.HandleHeight = 10;
+            this.middleHandle.HandleWidth = 50;
+            this.middleHandle.Location = new System.Drawing.Point(0, 42);
+            this.middleHandle.Name = "middleHandle";
+            this.middleHandle.Size = new System.Drawing.Size(100, 16);
+            this.middleHandle.TabIndex = 4;
+            this.middleHandle.Value = 50F;
+            this.middleHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
+            this.middleHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.middleHandle_MouseMove);
+            this.middleHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
+            // 
             // bottomHandle
             // 
+            this.bottomHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomHandle.BackColor = System.Drawing.Color.Red;
             this.bottomHandle.BorderColor = System.Drawing.Color.White;
             this.bottomHandle.HandleHeight = 10;
-            graphicsPath1.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.bottomHandle.HandlePath = graphicsPath1;
-            this.bottomHandle.HandleRectangle = new System.Drawing.Rectangle(0, 3, 51, 10);
             this.bottomHandle.HandleWidth = 50;
-            this.bottomHandle.Location = new System.Drawing.Point(-1, 58);
+            this.bottomHandle.Location = new System.Drawing.Point(0, 58);
             this.bottomHandle.Name = "bottomHandle";
-            this.bottomHandle.Size = new System.Drawing.Size(98, 17);
+            this.bottomHandle.Size = new System.Drawing.Size(100, 16);
             this.bottomHandle.TabIndex = 1;
-            graphicsPath2.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.bottomHandle.TextPath = graphicsPath2;
-            this.bottomHandle.TextRectangle = new System.Drawing.Rectangle(50, 0, 46, 15);
-            this.bottomHandle.Value = 33F;
+            this.bottomHandle.Value = 66F;
             this.bottomHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.bottomHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.bottomHandle_MouseMove);
             this.bottomHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
             // 
             // topHandle
             // 
+            this.topHandle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.topHandle.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.topHandle.BorderColor = System.Drawing.Color.White;
             this.topHandle.HandleHeight = 10;
-            graphicsPath3.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.topHandle.HandlePath = graphicsPath3;
-            this.topHandle.HandleRectangle = new System.Drawing.Rectangle(0, 3, 51, 10);
             this.topHandle.HandleWidth = 50;
-            this.topHandle.Location = new System.Drawing.Point(-1, 25);
+            this.topHandle.Location = new System.Drawing.Point(0, 25);
             this.topHandle.Name = "topHandle";
-            this.topHandle.Size = new System.Drawing.Size(98, 16);
+            this.topHandle.Size = new System.Drawing.Size(100, 16);
             this.topHandle.TabIndex = 3;
-            graphicsPath4.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.topHandle.TextPath = graphicsPath4;
-            this.topHandle.TextRectangle = new System.Drawing.Rectangle(50, 0, 46, 14);
-            this.topHandle.Value = 66F;
+            this.topHandle.Value = 33F;
             this.topHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handle_MouseDown);
             this.topHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topHandle_MouseMove);
             this.topHandle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.handle_MouseUp);
@@ -103,6 +109,7 @@
             // SliderControl
             // 
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.middleHandle);
             this.Controls.Add(this.bottomHandle);
             this.Controls.Add(this.topHandle);
             this.Controls.Add(this.backgroundControl);
@@ -117,5 +124,6 @@
         private HandleControl topHandle;
         private HandleControl bottomHandle;
         private BackgroundControl backgroundControl;
+        private HandleControl middleHandle;
     }
 }

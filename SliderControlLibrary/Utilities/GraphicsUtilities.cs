@@ -16,5 +16,14 @@
 
             return path;
         }
+
+        public static Region GetRegionForPath(GraphicsPath path)
+        {
+            var region = new Region(path);
+            path.Widen(SystemPens.ActiveBorder);
+            region.Union(path);
+
+            return region;
+        }
     }
 }
