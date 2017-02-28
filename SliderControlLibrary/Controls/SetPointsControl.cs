@@ -4,6 +4,7 @@
     using System.Runtime.InteropServices;
     using System;
 
+    [Guid("B6CF2AA2-D26D-3D9C-BB8E-1FA62E9AC221")]
     public partial class SetPointsControl : UserControl
     {
         public SetPointsControl()
