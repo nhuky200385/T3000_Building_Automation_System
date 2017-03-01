@@ -22,7 +22,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Static</UseOfMfc>
+    <UseOfMfc>Dynamic</UseOfMfc>
     <PlatformToolset>v100</PlatformToolset>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
@@ -46,14 +46,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\T3000 Output\debug</OutDir>
-    <IntDir>..\T3000 Output\Modbus Pol object\debug</IntDir>
+    <OutDir>..\T3000 Output\debug\</OutDir>
+    <IntDir>..\T3000 Output\Modbus Pol object\debug\</IntDir>
     <EmbedManifest>false</EmbedManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\T3000 Output\release</OutDir>
-    <IntDir>..\T3000 Output\Modbus Pol object\release</IntDir>
+    <OutDir>..\T3000 Output\release\</OutDir>
+    <IntDir>..\T3000 Output\Modbus Pol object\release\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
