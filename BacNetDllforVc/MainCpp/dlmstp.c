@@ -611,10 +611,10 @@ bool dlmstp_init(
     /* initialize packet queue */
     Receive_Packet.ready = false;
     Receive_Packet.pdu_len = 0;
-    Receive_Packet_Flag = CreateSemaphore(NULL, 0, 1, "dlmstpReceivePacket");
+    Receive_Packet_Flag = CreateSemaphore(NULL, 0, 1, L"dlmstpReceivePacket");
    // if (Receive_Packet_Flag == NULL)
    //     exit(1);
-    Received_Frame_Flag = CreateSemaphore(NULL, 0, 1, "dlsmtpReceiveFrame");
+    Received_Frame_Flag = CreateSemaphore(NULL, 0, 1, L"dlsmtpReceiveFrame");
     if (Received_Frame_Flag == NULL) {
         CloseHandle(Receive_Packet_Flag);
    //     exit(1);

@@ -82,6 +82,8 @@ int datalink_send_pdu (
 	{
 		//ptp_send_pdu(dest,npdu_data,pdu,pdu_len);
 	}
+
+	return 0;
 }
 
 __declspec(dllexport) uint16_t datalink_receive (BACNET_ADDRESS * src, uint8_t * pdu,
@@ -96,6 +98,7 @@ __declspec(dllexport) uint16_t datalink_receive (BACNET_ADDRESS * src, uint8_t *
 		return dlmstp_receive(src, pdu, max_pdu, timeout);
 	}
 	
+	return 0;
 }
 #endif
 /** Function template to close the DataLink services and perform any cleanup.

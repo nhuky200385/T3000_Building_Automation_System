@@ -270,7 +270,7 @@ void RS485_Initialize(
     void)
 {
 	wchar_t Temp_wchar[500];
-	wchar_t *  pUnicode;  
+	//wchar_t *  pUnicode;  
 	int  unicodeLen = MultiByteToWideChar( CP_ACP,0, RS485_Port_Name,-1,NULL,0 );  
 //	pUnicode = new  wchar_t[unicodeLen+1];  
 	memset(Temp_wchar,0,(unicodeLen+1)*sizeof(wchar_t));  
