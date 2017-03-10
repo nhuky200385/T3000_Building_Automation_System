@@ -264,6 +264,7 @@ pip-log.txt
 **/*.OLBlck
 **/*.MNL
 **/*.MAX
-/T3000.VC.db
 packages/
 .vs/
+*VC.opendb
+*VC.db
