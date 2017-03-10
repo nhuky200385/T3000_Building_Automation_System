@@ -858,7 +858,7 @@ BOOL CT3000App::InitInstance()
 		m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 		m_pMainWnd->ShowWindow(SW_SHOW);
 		m_pMainWnd->UpdateWindow();
-	   ((CMainFrame*)m_pMainWnd)->SwitchToPruductType(DLG_DIALOG_DEFAULT_BUILDING); 
+	   //((CMainFrame*)m_pMainWnd)->SwitchToPruductType(DLG_DIALOG_DEFAULT_BUILDING); 
 
        m_szAppPath  = g_strExePth;
        m_szHelpFile = theApp.m_szAppPath + L"T3000_Help.chm";

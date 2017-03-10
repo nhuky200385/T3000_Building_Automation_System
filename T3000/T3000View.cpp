@@ -464,13 +464,38 @@ void CT3000View::CreateFlexSilde()
         m_pNightTwoSP->SetChannelColor(RGB(192,192,192));
         m_pNightTwoSP->SetThumbColor(RGB(0,255,255)); //改变上面滑块的颜色
         m_pNightTwoSP->SetPageLength(5);
+		
         m_pNightTwoSP->SetChannelWidth(20);//中间的坚状条大小
         m_pNightTwoSP->SetThumbWidth(34);//滑块的大小
-
+		
+		/*
         m_pNightTwoSP->SetRange(10, 0);
         m_pNightTwoSP->SetPos(0, 1, 2);
+    	*/
+
+		m_pNightTwoSP->SetRange(50, -50);
+		m_pNightTwoSP->SetPos(15, 25, 40);
         m_pNightTwoSP->Setflag(1);
-        // init two thumb slider
+
+		int nMin, nMax;
+		vector<int> szPos(2);
+		m_pNightTwoSP->GetRange(nMin, nMax);
+		int nNum = m_pNightTwoSP->GetPos(szPos);
+		int nHeatSP = szPos[0] + nMin;
+		int nCoolSP = szPos[1] + nMin;
+		CString strTemp;
+		strTemp.Format(_T("%0.1f C"), (float)nCoolSP);
+		m_nightInfoEdit.FieldText(strTemp);
+		strTemp.Format(_T("%0.1f C"), (float)nHeatSP);
+		m_nightHeatInfoEdit.FieldText(strTemp);
+		strTemp.Format(_T("%d"), nMax);
+		GetDlgItem(IDC_STATIC_MAX_NIGHT)->SetWindowText(strTemp);
+		strTemp.Format(_T("%d"), nMin);
+		GetDlgItem(IDC_STATIC_MIN_NIGHT)->SetWindowText(strTemp);
+		// init two thumb slider
+		strTemp.Format(_T("%0.1f C"), ((float)nCoolSP + (float)nHeatSP) / 2.0);
+		m_nightpotEdit.FieldText(RGB(0, 0, 0), strTemp);
+		m_nightpotEdit.ShowWindow(FALSE);
 
 #endif
 //       CStatic *s0 = (CStatic*)GetDlgItem(IDC_SLIDER_TEST);
@@ -626,9 +651,32 @@ void CT3000View::CreateFlexSilde()
         m_pDaySingleSP->SetChannelWidth(20);
         m_pDaySingleSP->SetThumbWidth(34);
 
+		/*
         m_pDaySingleSP->SetRange(10, 0);
         m_pDaySingleSP->SetPos(0, 1, 2);
+		*/
+
+		m_pDaySingleSP->SetRange(50, -50);
+		m_pDaySingleSP->SetPos(-10, 0, 10);
         m_pDaySingleSP->Setflag(4);
+
+		m_pDaySingleSP->ShowWindow(TRUE);
+		vector<int>  szPos1(3);
+		m_pDaySingleSP->GetRange(nMin, nMax);
+		nNum = m_pDaySingleSP->GetPos(szPos1);
+		nHeatSP = szPos1[0] + nMin;//??
+		int nSP = szPos1[1] + nMin;
+		nCoolSP = szPos1[2] + nMin;//??
+		strTemp.Format(_T("%d C"), nCoolSP);
+		m_DayCoolEdit.FieldText(strTemp);
+		strTemp.Format(_T("%d"), nSP);
+		m_dayInfoEdit.FieldText(RGB(0, 0, 0), strTemp);
+		strTemp.Format(_T("%d C"), nHeatSP);
+		m_DayHeatEdit.FieldText(strTemp);
+		strTemp.Format(_T("%d"), nMax);
+		GetDlgItem(IDC_STATIC_MAX_DAY)->SetWindowText(strTemp);
+		strTemp.Format(_T("%d"), nMin);
+		GetDlgItem(IDC_STATIC_MIN_DAY)->SetWindowText(strTemp);
         //
 
 
@@ -656,7 +704,7 @@ void CT3000View::CreateFlexSilde()
 
 
     }
-
+	m_pNightTwoSP->ShowWindow(TRUE);
 //     m_tooltips.Create(GetDlgItem(IDC_FSB_DAYHOTEL));
 //
 //     m_tooltips.Activate(TRUE);
@@ -829,6 +877,12 @@ void CT3000View::Fresh()
         GetDlgItem(IDC_STATIC_NAME_TSTAT)->ShowWindow(SW_HIDE);
         GetDlgItem(IDC_EDIT_TSTAT_NAME)->ShowWindow(SW_HIDE);
     }
+	CString	g_configfile_path = g_strExePth + _T("T3000_config.ini");
+	m_offline = GetPrivateProfileInt(_T("SliderUI"), _T("Online"), 0, g_configfile_path);
+	if (!m_offline)
+	{
+		InitFlexSliderBars_tstat6();
+	}
 }
 
 void CT3000View::Fresh_T3000View()
@@ -4688,6 +4742,43 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
     m_active_key_mouse=TRUE;
     int nHDB=0;
     int nCDB=0;
+
+	if (wParam == 1)
+	{
+		int nMin, nMax;
+		vector<int>  szPos(2);
+		m_pNightTwoSP->GetRange(nMin, nMax);
+		int nNum = m_pNightTwoSP->GetPos(szPos);
+		int nHeatSP = szPos[0] + nMin;
+		int nCoolSP = szPos[1] + nMin;
+		CString strTemp;
+		strTemp.Format(_T("%0.1f C"), (float)nCoolSP);
+		m_nightInfoEdit.FieldText(strTemp);
+		strTemp.Format(_T("%0.1f C"), (float)nHeatSP);
+		m_nightHeatInfoEdit.FieldText(strTemp);
+		strTemp.Format(_T("%0.1f C"), ((float)nCoolSP + (float)nHeatSP) / 2.0);
+		m_nightpotEdit.FieldText(strTemp);
+		m_nightpotEdit.ShowWindow(FALSE);
+
+		return 0;
+	}
+	if (wParam == 4)
+	{
+		CString strTemp;
+		int nMin, nMax;
+		vector<int>  szPos1(3);
+		m_pDaySingleSP->GetRange(nMin, nMax);
+		int nNum = m_pDaySingleSP->GetPos(szPos1);
+		int nHeatSP = szPos1[0] + nMin;//??
+		int nSP = szPos1[1] + nMin;
+		int nCoolSP = szPos1[2] + nMin;//??
+		strTemp.Format(_T("%d C"), nCoolSP);
+		m_DayCoolEdit.FieldText(strTemp);
+		strTemp.Format(_T("%d"), nSP);
+		m_dayInfoEdit.FieldText(RGB(0, 0, 0), strTemp);
+		strTemp.Format(_T("%d C"), nHeatSP);
+		m_DayHeatEdit.FieldText(strTemp);
+	}
 
     if((product_register_value[7] == PM_TSTAT6)||(product_register_value[7] == PM_TSTAT7)||(product_register_value[7] == PM_TSTAT8)||(product_register_value[7] == PM_TSTAT5i))
     {

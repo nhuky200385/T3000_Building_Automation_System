@@ -8760,6 +8760,7 @@ BOOL DirectoryExist(CString Path)
 
 BOOL Ping(const CString& strIP, CWnd* pWndEcho)
 {
+	/*
     CMyPing* pPing = new CMyPing;
 
     pPing->SetPingEchoWnd(pWndEcho);
@@ -8768,6 +8769,7 @@ BOOL Ping(const CString& strIP, CWnd* pWndEcho)
 
     delete pPing;
     pPing = NULL;
+	*/
     return FALSE;
 }
 
