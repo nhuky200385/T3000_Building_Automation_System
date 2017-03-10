@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "targets": {
+    ".NETFramework,Version=v4.0": {},
+    ".NETFramework,Version=v4.0/win": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "": [],
+    ".NETFramework,Version=v4.0": []
+  },
+  "packageFolders": {
+    "C:\\Users\\haven\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\SliderControlLibrary.csproj",
+      "projectName": "SliderControlLibrary",
+      "projectPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\SliderControlLibrary.csproj",
+      "projectJsonPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\project.json",
+      "projectStyle": "ProjectJson"
+    },
+    "frameworks": {
+      "net40": {}
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      }
+    }
+  }
+}
