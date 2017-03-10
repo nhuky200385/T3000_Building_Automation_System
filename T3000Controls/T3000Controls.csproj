@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\T3000 Output\debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\T3000 Output\release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,6 +54,7 @@
     <Compile Include="Controls\BackgroundControl.Designer.cs">
       <DependentUpon>BackgroundControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Controls\Interfaces\ISetPointsControl.cs" />
     <Compile Include="Controls\Interfaces\ISliderControl.cs" />
     <Compile Include="Controls\Interfaces\ISliderControlEvents.cs" />
