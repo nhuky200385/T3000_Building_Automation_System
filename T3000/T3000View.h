@@ -19,6 +19,7 @@
 #include "singleslider/MacSliderCtrl.h"
 #include "AutoRichEditCtrl.h"
 #include "CM5/CStatic/staticex.h"
+#include "cslidercontrol.h"
 //#include "TemcoDataGrid.h"
 #define WM_FRESHVIEW WM_USER + 1100
 
@@ -188,6 +189,7 @@ public:
 
 	CFSBContainer*  m_pDayTwoSP;
 	CFSBContainer*  m_pDaySingleSP;
+	CSliderControl  m_daySlider;
 
  //	CFSBContainer*  m_pTemperSP;
      CFSBContainer*  m_pSlider_Test_TwoSP;
@@ -301,6 +303,8 @@ public:
      
 	 BOOL m_offline;
      //afx_msg void OnBnClickedTestSlider();
+	 void BottomZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue);
+	 void TopZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue);
 };
 
 #ifndef _DEBUG  // debug version in T3000View.cpp

@@ -1778,6 +1778,9 @@
     <ClInclude Include="BacnetIOConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cslidercontrol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="T3000.rc">

@@ -338,6 +338,7 @@ void CT3000View::DoDataExchange(CDataExchange* pDX)
 
 
   /*  DDX_Control(pDX, IDC_STATIC_ISP, m_isp);*/
+	DDX_Control(pDX, IDC_SLIDERCONTROL1, m_daySlider);
 }
 
 BOOL CT3000View::PreCreateWindow(CREATESTRUCT& cs)
@@ -430,6 +431,7 @@ void CT3000View::OnInitialUpdate()
 
 void CT3000View::CreateFlexSilde()
 {
+	//m_daySlider.put_IndicatorWidth(40);
 
 
 
@@ -3031,6 +3033,8 @@ void CT3000View::OnBnClickedParameterbtn()
 BEGIN_EVENTSINK_MAP(CT3000View, CFormView)
 ON_EVENT(CT3000View, IDC_INPUT_MSFLEXGRID, DISPID_CLICK, CT3000View::ClickInputMsflexgrid, VTS_NONE)
 ON_EVENT(CT3000View, IDC_OUTPUT_MSFLEXGRID, DISPID_CLICK, CT3000View::ClickOutputMsflexgrid, VTS_NONE)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 2, CT3000View::BottomZoneValueChangedSlidercontrol1, VTS_VARIANT VTS_R4)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 1, CT3000View::TopZoneValueChangedSlidercontrol1, VTS_VARIANT VTS_R4)
 END_EVENTSINK_MAP()
 
 void CT3000View::ClickInputMsflexgrid()
@@ -8297,4 +8301,18 @@ BOOL CT3000View::OnToolTipNotify(UINT id, NMHDR * pNMHDR, LRESULT * pResult)
     }
 
     return(FALSE);
+}
+
+
+void CT3000View::BottomZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue)
+{
+	m_daySlider.put_IndicatorText(m_daySlider.get_BottomZoneText());
+	// TODO: Add your message handler code here
+}
+
+
+void CT3000View::TopZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue)
+{
+	m_daySlider.put_IndicatorText(m_daySlider.get_TopZoneText());
+	// TODO: Add your message handler code here
 }
