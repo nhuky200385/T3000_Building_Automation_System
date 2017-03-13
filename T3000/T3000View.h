@@ -75,6 +75,10 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void OnInitialUpdate(); // called first time after construct
+
+	void UpdateDayControls();
+	void UpdateNightControls();
+
 	void CreateFlexSilde();
 // Implementation
 public:
@@ -189,6 +193,8 @@ public:
 
 	CFSBContainer*  m_pDayTwoSP;
 	CFSBContainer*  m_pDaySingleSP;
+
+	CSliderControl  m_nightSlider;
 	CSliderControl  m_daySlider;
 
  //	CFSBContainer*  m_pTemperSP;
@@ -303,8 +309,8 @@ public:
      
 	 BOOL m_offline;
      //afx_msg void OnBnClickedTestSlider();
-	 void BottomZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue);
-	 void TopZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue);
+	 void ValuesChangedDaySlider(const VARIANT& sender, float newValue);
+	 void ValuesChangedNightSlider(const VARIANT& sender, float newValue);
 };
 
 #ifndef _DEBUG  // debug version in T3000View.cpp

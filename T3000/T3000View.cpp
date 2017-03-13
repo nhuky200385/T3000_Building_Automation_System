@@ -271,9 +271,8 @@ CT3000View::~CT3000View()
         m_pDayTwoSP = NULL;
     }
 
-
-
-
+	m_daySlider.Dispose();
+	m_nightSlider.Dispose();
 }
 
 void CT3000View::DoDataExchange(CDataExchange* pDX)
@@ -338,7 +337,9 @@ void CT3000View::DoDataExchange(CDataExchange* pDX)
 
 
   /*  DDX_Control(pDX, IDC_STATIC_ISP, m_isp);*/
+
 	DDX_Control(pDX, IDC_SLIDERCONTROL1, m_daySlider);
+	DDX_Control(pDX, IDC_SLIDERCONTROL2, m_nightSlider);
 }
 
 BOOL CT3000View::PreCreateWindow(CREATESTRUCT& cs)
@@ -351,6 +352,9 @@ BOOL CT3000View::PreCreateWindow(CREATESTRUCT& cs)
 void CT3000View::OnInitialUpdate()
 {
     CFormView::OnInitialUpdate();
+
+	m_daySlider.UpdateWindow();
+	m_nightSlider.UpdateWindow();
 
     m_gUnit.AddString(_T(" C"));
     m_gUnit.AddString(_T(" F"));
@@ -429,12 +433,29 @@ void CT3000View::OnInitialUpdate()
 
 }
 
+//Sets day control values from the dayControl
+void CT3000View::UpdateDayControls()
+{
+	m_DayCoolEdit.FieldText(m_daySlider.get_TopZoneText());
+	m_dayInfoEdit.FieldText(m_daySlider.get_MiddleZoneText());
+	m_DayHeatEdit.FieldText(m_daySlider.get_BottomZoneText());
+	GetDlgItem(IDC_STATIC_MAX_DAY)->SetWindowText(m_daySlider.get_TopValueText());
+	GetDlgItem(IDC_STATIC_MIN_DAY)->SetWindowText(m_daySlider.get_BottomValueText());
+}
+
+//Sets night control values from the nightControl
+void CT3000View::UpdateNightControls()
+{
+	m_nightInfoEdit.FieldText(m_nightSlider.get_TopZoneText());
+	m_nightpotEdit.FieldText(RGB(0, 0, 0), m_nightSlider.get_MiddleZoneText());
+	m_nightHeatInfoEdit.FieldText(m_nightSlider.get_BottomZoneText());
+	GetDlgItem(IDC_STATIC_MAX_NIGHT)->SetWindowText(m_nightSlider.get_TopValueText());
+	GetDlgItem(IDC_STATIC_MIN_NIGHT)->SetWindowText(m_nightSlider.get_BottomValueText());
+	m_nightpotEdit.ShowWindow(FALSE); //??
+}
+
 void CT3000View::CreateFlexSilde()
 {
-	//m_daySlider.put_IndicatorWidth(40);
-
-
-
     if(m_pNightTwoSP == NULL)
     {
         CStatic *s = (CStatic*)GetDlgItem(IDC_FSB_OFFICE);
@@ -473,10 +494,21 @@ void CT3000View::CreateFlexSilde()
 		/*
         m_pNightTwoSP->SetRange(10, 0);
         m_pNightTwoSP->SetPos(0, 1, 2);
+
+		m_nightSlider.SetRange(10, 0);
+		m_nightSlider.SetZoneValues(2, 0);
+		m_nightSlider.put_CurrentValue(0);
     	*/
 
 		m_pNightTwoSP->SetRange(50, -50);
 		m_pNightTwoSP->SetPos(15, 25, 40);
+
+		m_nightSlider.SetRange(50, -50);
+		m_nightSlider.SetZoneValues(40, 15);
+		m_nightSlider.put_CurrentValue(0);
+		m_nightSlider.put_Left(m_daySlider.get_Left() + m_daySlider.get_Width() + 20);
+		m_nightSlider.put_BackgroundWidth(20);
+
         m_pNightTwoSP->Setflag(1);
 
 		int nMin, nMax;
@@ -499,6 +531,7 @@ void CT3000View::CreateFlexSilde()
 		m_nightpotEdit.FieldText(RGB(0, 0, 0), strTemp);
 		m_nightpotEdit.ShowWindow(FALSE);
 
+		UpdateNightControls();
 #endif
 //       CStatic *s0 = (CStatic*)GetDlgItem(IDC_SLIDER_TEST);
 //
@@ -656,6 +689,8 @@ void CT3000View::CreateFlexSilde()
 		/*
         m_pDaySingleSP->SetRange(10, 0);
         m_pDaySingleSP->SetPos(0, 1, 2);
+		m_daySlider.SetRange(10, 0);
+		m_daySlider.SetZoneValues(2, 0);
 		*/
 
 		m_pDaySingleSP->SetRange(50, -50);
@@ -663,6 +698,19 @@ void CT3000View::CreateFlexSilde()
         m_pDaySingleSP->Setflag(4);
 
 		m_pDaySingleSP->ShowWindow(TRUE);
+
+		//Initialization of the day slider.
+		m_daySlider.SetRange(50, -50);
+		m_daySlider.SetZoneValues(10, -10);
+
+		m_daySlider.put_CurrentValue(0);
+		m_daySlider.put_IsSimpleIndicator(FALSE);
+		m_daySlider.put_BackgroundWidth(20);
+		m_daySlider.put_IndicatorWidth(140);
+		m_daySlider.put_Width(140 + 20 + 60);
+		m_daySlider.put_LinesColor(RGB(192, 192, 192));
+		m_daySlider.put_Visible(TRUE);
+
 		vector<int>  szPos1(3);
 		m_pDaySingleSP->GetRange(nMin, nMax);
 		nNum = m_pDaySingleSP->GetPos(szPos1);
@@ -679,6 +727,8 @@ void CT3000View::CreateFlexSilde()
 		GetDlgItem(IDC_STATIC_MAX_DAY)->SetWindowText(strTemp);
 		strTemp.Format(_T("%d"), nMin);
 		GetDlgItem(IDC_STATIC_MIN_DAY)->SetWindowText(strTemp);
+
+		UpdateDayControls();
         //
 
 
@@ -1302,6 +1352,8 @@ void CT3000View::InitSliderBars2()
         m_pDayTwoSP->ShowWindow(SW_NORMAL);
         m_pDaySingleSP->ShowWindow(SW_HIDE);
 
+		m_daySlider.put_TwoSliderMode(TRUE);
+
     }
     else  // hotel - occupied
 #endif
@@ -1370,11 +1422,9 @@ void CT3000View::InitSliderBars2()
         m_pDaySingleSP->ShowWindow(SW_NORMAL);
         m_pDayTwoSP->ShowWindow(SW_HIDE);
 
-
-
-
-
-
+		m_daySlider.SetRange(DayMax * 10.0F, DayMin * 10.0F);
+		m_daySlider.SetZoneValues(dHeatSP * 10.0F, dCoolSP * 10.0F);
+		m_daySlider.put_TwoSliderMode(FALSE);
     }
 
 
@@ -3033,8 +3083,10 @@ void CT3000View::OnBnClickedParameterbtn()
 BEGIN_EVENTSINK_MAP(CT3000View, CFormView)
 ON_EVENT(CT3000View, IDC_INPUT_MSFLEXGRID, DISPID_CLICK, CT3000View::ClickInputMsflexgrid, VTS_NONE)
 ON_EVENT(CT3000View, IDC_OUTPUT_MSFLEXGRID, DISPID_CLICK, CT3000View::ClickOutputMsflexgrid, VTS_NONE)
-ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 2, CT3000View::BottomZoneValueChangedSlidercontrol1, VTS_VARIANT VTS_R4)
-ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 1, CT3000View::TopZoneValueChangedSlidercontrol1, VTS_VARIANT VTS_R4)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 1, CT3000View::ValuesChangedDaySlider, VTS_VARIANT VTS_R4)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL1, 2, CT3000View::ValuesChangedDaySlider, VTS_VARIANT VTS_R4)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL2, 1, CT3000View::ValuesChangedNightSlider, VTS_VARIANT VTS_R4)
+ON_EVENT(CT3000View, IDC_SLIDERCONTROL2, 2, CT3000View::ValuesChangedNightSlider, VTS_VARIANT VTS_R4)
 END_EVENTSINK_MAP()
 
 void CT3000View::ClickInputMsflexgrid()
@@ -4483,13 +4535,14 @@ void CT3000View::InitFlexSliderBars()
             nRangeMin = nHeatSP < nRangeMin ? nHeatSP : nRangeMin;
 
             m_pDayTwoSP->SetRange(nRangeMax, nRangeMin);
-            BOOL bRetSP = m_pDayTwoSP->SetPos( nHeatSP, nCoolSP, nCoolSP+1);
+            BOOL bRetSP = m_pDayTwoSP->SetPos( nHeatSP, nCoolSP, nCoolSP+1); 
 
-            HandleSliderSetPos(bRetSP);//tstat6
+            HandleSliderSetPos(bRetSP);//tstat6 
 
             m_pDayTwoSP->ShowWindow(SW_NORMAL);
             m_pDaySingleSP->ShowWindow(SW_HIDE);
 
+			m_daySlider.put_TwoSliderMode(TRUE);
 
             //stat6
             m_pNightTwoSP->ShowWindow(SW_HIDE);
@@ -4566,6 +4619,10 @@ void CT3000View::InitFlexSliderBars()
             m_pDaySingleSP->ShowWindow(SW_NORMAL);
             m_pDayTwoSP->ShowWindow(SW_HIDE);
 
+			m_daySlider.SetRange(nRangeMax, nRangeMin);
+			m_daySlider.SetZoneValues(nCoolSP, nHeatSP);
+			m_daySlider.put_TwoSliderMode(FALSE);
+
             //stat6
             m_pNightTwoSP->ShowWindow(SW_HIDE);
             m_pNightSingleSP->ShowWindow(SW_HIDE);
@@ -4578,6 +4635,8 @@ void CT3000View::InitFlexSliderBars()
             strTemp.Format(_T("%d"),0);
             CWnd *pSPWnd = GetDlgItem(IDC_EDIT_CUR_SP);
             pSPWnd->SetWindowText(strTemp);
+
+			m_nightSlider.put_Visible(FALSE);
         }
     }
     else  // unoccupied
@@ -4619,7 +4678,9 @@ void CT3000View::InitFlexSliderBars()
             m_pNightTwoSP->ShowWindow(SW_NORMAL);
             m_pNightSingleSP->ShowWindow(SW_HIDE);
 
-
+			m_nightSlider.SetRange(nRangeMax, nRangeMin);
+			m_nightSlider.SetZoneValues(nCoolSP + 1, nHeatSP);//??
+			m_nightSlider.put_TwoSliderMode(TRUE);
 
             //stat6
 
@@ -4634,6 +4695,8 @@ void CT3000View::InitFlexSliderBars()
 
             strTemp.Format(_T("%d"), 0);
             m_dayInfoEdit.FieldText(RGB(0,0,0),strTemp);
+
+			m_daySlider.put_Visible(FALSE);
         }
         else  // hotel
         {
@@ -4690,6 +4753,9 @@ void CT3000View::InitFlexSliderBars()
             m_pNightSingleSP->ShowWindow(SW_NORMAL);
             m_pNightTwoSP->ShowWindow(SW_HIDE);
 
+			m_nightSlider.SetRange(nRangeMax, nRangeMin);
+			m_nightSlider.SetZoneValues(nCoolSP, nHeatSP);
+			m_nightSlider.put_TwoSliderMode(FALSE);
 
             //stat6
 
@@ -4700,8 +4766,11 @@ void CT3000View::InitFlexSliderBars()
             m_DayHeatEdit.FieldText(strTemp);
             m_pDaySingleSP->ShowWindow(SW_HIDE);
             m_pDayTwoSP->ShowWindow(SW_HIDE);
+			m_daySlider.put_Visible(FALSE);
             strTemp.Format(_T("%d"), 0);
             m_dayInfoEdit.FieldText(RGB(0,0,100),strTemp);
+
+			m_daySlider.put_Visible(FALSE);
         }
     }
 
@@ -4763,6 +4832,7 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 		strTemp.Format(_T("%0.1f C"), ((float)nCoolSP + (float)nHeatSP) / 2.0);
 		m_nightpotEdit.FieldText(strTemp);
 		m_nightpotEdit.ShowWindow(FALSE);
+		UpdateNightControls();
 
 		return 0;
 	}
@@ -4782,6 +4852,8 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 		m_dayInfoEdit.FieldText(RGB(0, 0, 0), strTemp);
 		strTemp.Format(_T("%d C"), nHeatSP);
 		m_DayHeatEdit.FieldText(strTemp);
+
+		UpdateDayControls();
 	}
 
     if((product_register_value[7] == PM_TSTAT6)||(product_register_value[7] == PM_TSTAT7)||(product_register_value[7] == PM_TSTAT8)||(product_register_value[7] == PM_TSTAT5i))
@@ -4873,6 +4945,7 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 
 
 					m_pNightTwoSP->SetPos_tstat6_2pos(nHeatSP, nSP, nCoolSP);
+					m_nightSlider.SetZoneValues(nCoolSP, nHeatSP);
 
 					CString strTemp;
 
@@ -4925,7 +4998,12 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
             int nHeatSP = szPos[0] + nMin;
             int nSP = szPos[1] + nMin;
             int nCoolSP= szPos[2] + nMin;
-
+			//int nMax = m_nightSlider.get_TopValue();
+			//int nMin = m_nightSlider.get_BottomValue();
+			//int nHeatSP = m_nightSlider.get_TopZoneValue();
+			//int nSP = m_nightSlider.get_MiddleZoneValue();
+			//int nCoolSP = m_nightSlider.get_BottomZoneValue();
+			
 			nHeatSP = GetRoundNumber(nHeatSP);
 			nCoolSP = GetRoundNumber(nCoolSP);
 			nSP = GetRoundNumber(nSP);
@@ -4961,6 +5039,7 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 
 				CString strTemp;
 				BOOL bRetSP = m_pNightSingleSP->SetPos_tstat6_3pos(nHeatSP, nSP, nCoolSP);
+				m_nightSlider.SetZoneValues(nCoolSP, nHeatSP);
 				HandleSliderSetPos(bRetSP);//tstat6
 
 				if (g_unint)
@@ -5018,6 +5097,11 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
             int nHeatSP = szPos[0] + nMin;
             int nCoolSP = szPos[1] + nMin;
             nSP= (nHeatSP+nCoolSP)/2;
+			//int nMax = m_daySlider.get_TopValue();
+			//int nMin = m_daySlider.get_BottomValue();
+			//int nHeatSP = m_daySlider.get_TopZoneValue();
+			//int nSP = m_daySlider.get_MiddleZoneValue();
+			//int nCoolSP = m_daySlider.get_BottomZoneValue();
 			nHeatSP = GetRoundNumber(nHeatSP);
 			nCoolSP = GetRoundNumber(nCoolSP);
 			nSP = GetRoundNumber(nSP);
@@ -5099,6 +5183,8 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 			  m_DayHeatEdit.FieldText(strTemp);
 
 			  m_pDayTwoSP->SetPos_tstat6_2pos(nHeatSP, nSP, nCoolSP);
+			  
+			  m_daySlider.SetZoneValues(nCoolSP, nHeatSP);
 		  }
 
 		
@@ -5121,6 +5207,13 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
             int nHeatSP = szPos[0] + nMin;//最小
             int nSP = szPos[1] + nMin;
             int  nCoolSP= szPos[2] + nMin;//最大
+
+			//int nMax = m_daySlider.get_TopValue();
+			//int nMin = m_daySlider.get_BottomValue();
+			//int nHeatSP = m_daySlider.get_TopZoneValue();
+			//int nSP = m_daySlider.get_MiddleZoneValue();
+			//int nCoolSP = m_daySlider.get_BottomZoneValue();
+
 			nHeatSP = GetRoundNumber(nHeatSP);
 			nCoolSP = GetRoundNumber(nCoolSP);
 			nSP = GetRoundNumber(nSP);
@@ -5156,6 +5249,7 @@ LRESULT CT3000View::OnFlexSlideCallBack(WPARAM wParam, LPARAM lParam)
 				product_register_value[MODBUS_DAY_HEATING_SETPOINT]=nHeatSP;
 
 				BOOL bRetSP = m_pDaySingleSP->SetPos_tstat6_3pos(nHeatSP, nSP, nCoolSP);//tstat6
+				m_daySlider.SetZoneValues(nCoolSP, nHeatSP);
 
 				HandleSliderSetPos(bRetSP);//tstat6
 				CString strTemp;
@@ -5943,6 +6037,8 @@ void CT3000View::OnFlexSlideCallBackFor5ABCD( int response )
 
         int day_slider_CoolSP = (szPos[1] + nMin)/10;
 
+		//int day_slider_CoolSP = m_daySlider.get_TopZoneValue() / 10;
+		//int day_slider_HeatSP = m_daySlider.get_BottomZoneValue() / 10;
 
 
         if ((day_slider_CoolSP - dSP<0)||(dSP - day_slider_HeatSP<0))
@@ -5988,6 +6084,9 @@ void CT3000View::OnFlexSlideCallBackFor5ABCD( int response )
         int Slider_nHeatSP = (szPos[0] + nMin)/10;
         int Slider_nSP = (szPos[1] + nMin)/10;
         int Slider_nCoolSP = (szPos[2] + nMin)/10;
+		//int Slider_nCoolSP = m_daySlider.get_TopZoneValue() / 10;
+		//int Slider_nSP = m_daySlider.get_MiddleZoneValue() / 10;
+		//int Slider_nHeatSP = m_daySlider.get_BottomZoneValue() / 10;
 
         nMax/=10;
         nMin/=10;
@@ -6064,6 +6163,9 @@ void CT3000View::OnFlexSlideCallBackFor5ABCD( int response )
         int nCoolSP = (szPos[1] + nMin)/10;
         int nSP =(nCoolSP - nHeatSP)/2 +nHeatSP;
 
+		//int nCoolSP = m_nightSlider.get_TopZoneValue() / 10;
+		//int nSP = m_nightSlider.get_MiddleZoneValue() / 10;
+		//int nHeatSP = m_nightSlider.get_BottomZoneValue() / 10;
 
         int Tstat_nCoolSP=product_register_value[MODBUS_NIGHT_COOLING_SETPOINT]/10;
         int Tstat_nHeatSP=product_register_value[MODBUS_NIGHT_HEATING_SETPOINT]/10;
@@ -6101,6 +6203,9 @@ void CT3000View::OnFlexSlideCallBackFor5ABCD( int response )
         int Slider_nSP = (szPos[1] + nMin)/10;
         //int nSP = product_register_value[374]/10;
         int Slider_nCoolSP = (szPos[2] + nMin)/10;
+		//int Slider_nCoolSP = m_nightSlider.get_TopZoneValue() / 10;
+		//int Slider_nSP = m_nightSlider.get_MiddleZoneValue() / 10;
+		//int Slider_nHeatSP = m_nightSlider.get_BottomZoneValue() / 10;
 
         nMin /=10;
         nMax /=10;
@@ -6505,6 +6610,11 @@ void CT3000View::InitFlexSliderBars_tstat6()
             }
             m_pDayTwoSP->ShowWindow(SW_NORMAL);
             m_pDaySingleSP->ShowWindow(SW_HIDE);
+
+			m_daySlider.SetRange(DayMax * 10, DayMin * 10);
+			m_daySlider.SetZoneValues(DayCoolingSP, DayHeatingSP);
+			m_daySlider.put_TwoSliderMode(TRUE);
+
             if (g_unint)
             {
                 strTemp.Format(_T("%0.1f C"),((float)((short)product_register_value[MODBUS_DAY_COOLING_SETPOINT])/10.0) );
@@ -6579,6 +6689,9 @@ void CT3000View::InitFlexSliderBars_tstat6()
             m_pDaySingleSP->ShowWindow(SW_NORMAL);
             m_pDayTwoSP->ShowWindow(SW_HIDE);
 
+			m_daySlider.SetRange(DayMax * 10, DayMin * 10);
+			m_daySlider.SetZoneValues(DayCoolingSP, DayHeatingSP);
+			m_daySlider.put_TwoSliderMode(FALSE);
 
 
             if (g_unint)
@@ -6649,6 +6762,9 @@ void CT3000View::InitFlexSliderBars_tstat6()
             m_pNightSingleSP->ShowWindow(SW_HIDE);
 
 
+			m_nightSlider.SetRange(DayMax * 10, DayMin * 10);
+			m_nightSlider.SetZoneValues(NightCoolingSP, NightHeatingSP);
+			m_nightSlider.put_TwoSliderMode(TRUE);
 
 
 
@@ -6712,6 +6828,11 @@ void CT3000View::InitFlexSliderBars_tstat6()
             HandleSliderSetPos(bRetSP);//tstat6
             m_pNightSingleSP->ShowWindow(SW_NORMAL);
             m_pNightTwoSP->ShowWindow(SW_HIDE);
+
+			m_nightSlider.SetRange(DayMax * 10, DayMin * 10);
+			m_nightSlider.SetZoneValues(NightCoolingSP, NightHeatingSP);
+			m_nightSlider.put_TwoSliderMode(FALSE);
+
             m_nightpot = nSP;
             if (g_unint)
             {
@@ -6896,6 +7017,11 @@ void CT3000View::SetFlexSliderBars_tstat6()
             }
             m_pDayTwoSP->ShowWindow(SW_NORMAL);
             m_pDaySingleSP->ShowWindow(SW_HIDE);
+
+			m_daySlider.SetRange(DayMax * 10, DayMin * 10);
+			m_daySlider.SetZoneValues(DayCoolingSP, DayHeatingSP);
+			m_daySlider.put_TwoSliderMode(TRUE);
+
             if (g_unint)
             {
                 strTemp.Format(_T("%0.1f C"),((float)((short)product_register_value[MODBUS_DAY_COOLING_SETPOINT])/10.0) );
@@ -6971,7 +7097,9 @@ void CT3000View::SetFlexSliderBars_tstat6()
             m_pDaySingleSP->ShowWindow(SW_NORMAL);
             m_pDayTwoSP->ShowWindow(SW_HIDE);
 
-
+			m_daySlider.SetRange(DayMax * 10, DayMin * 10);
+			m_daySlider.SetZoneValues(DayCoolingSP, DayHeatingSP);
+			m_daySlider.put_TwoSliderMode(FALSE);
 
             if (g_unint)
             {
@@ -7040,10 +7168,9 @@ void CT3000View::SetFlexSliderBars_tstat6()
             m_pNightTwoSP->ShowWindow(SW_NORMAL);
             m_pNightSingleSP->ShowWindow(SW_HIDE);
 
-
-
-
-
+			m_nightSlider.SetRange(DayMax * 10, DayMin * 10);
+			m_nightSlider.SetZoneValues(NightCoolingSP, NightHeatingSP);
+			m_nightSlider.put_TwoSliderMode(TRUE);
 
             m_nightpot = nSP;
             //UpdateData(FALSE);
@@ -7104,6 +7231,11 @@ void CT3000View::SetFlexSliderBars_tstat6()
             HandleSliderSetPos(bRetSP);//tstat6
             m_pNightSingleSP->ShowWindow(SW_NORMAL);
             m_pNightTwoSP->ShowWindow(SW_HIDE);
+
+			m_nightSlider.SetRange(DayMax * 10, DayMin * 10);
+			m_nightSlider.SetZoneValues(NightCoolingSP, NightHeatingSP);
+			m_nightSlider.put_TwoSliderMode(FALSE);
+
             m_nightpot = nSP;
             if (g_unint)
             {
@@ -7544,11 +7676,13 @@ void CT3000View::FreshCtrl()
     {
         g_unint = FALSE;
         GetDlgItem(IDC_STATICUNINT)->SetWindowText(_T(" F"));
+		m_daySlider.put_AdditionalText(L" F");
     }
     else
     {
         g_unint = TRUE;
         GetDlgItem(IDC_STATICUNINT)->SetWindowText(_T(" C"));
+		m_daySlider.put_AdditionalText(L" C");
     }
 
     m_fFirmwareVersion=get_curtstat_version();
@@ -8128,11 +8262,13 @@ void CT3000View::OnCbnSelchangeStaticunint()
         {
             g_unint = FALSE;
             GetDlgItem(IDC_STATICUNINT)->SetWindowText(_T(" F"));
+			m_daySlider.put_AdditionalText(_T(" F"));
         }
         else
         {
             g_unint = TRUE;
             GetDlgItem(IDC_STATICUNINT)->SetWindowText(_T(" C"));
+			m_daySlider.put_AdditionalText(_T(" C"));
         }
         Fresh_In();
     }
@@ -8303,16 +8439,12 @@ BOOL CT3000View::OnToolTipNotify(UINT id, NMHDR * pNMHDR, LRESULT * pResult)
     return(FALSE);
 }
 
-
-void CT3000View::BottomZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue)
+void CT3000View::ValuesChangedDaySlider(const VARIANT& sender, float newValue)
 {
-	m_daySlider.put_IndicatorText(m_daySlider.get_BottomZoneText());
-	// TODO: Add your message handler code here
+	UpdateDayControls();
 }
 
-
-void CT3000View::TopZoneValueChangedSlidercontrol1(const VARIANT& sender, float newValue)
+void CT3000View::ValuesChangedNightSlider(const VARIANT& sender, float newValue)
 {
-	m_daySlider.put_IndicatorText(m_daySlider.get_TopZoneText());
-	// TODO: Add your message handler code here
+	UpdateNightControls();
 }
