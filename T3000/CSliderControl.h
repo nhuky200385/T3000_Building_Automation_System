@@ -230,230 +230,245 @@ public:
 		static BYTE parms[] = VTS_UI4;
 		InvokeHelper(0x60020025, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	unsigned long get_IndicatorColor()
+	BOOL get_LowEventMode()
 	{
-		unsigned long result;
-		InvokeHelper(0x60020027, DISPATCH_PROPERTYGET, VT_UI4, (void*)&result, NULL);
+		BOOL result;
+		InvokeHelper(0x60020027, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
-	void put_IndicatorColor(unsigned long newValue)
+	void put_LowEventMode(BOOL newValue)
 	{
-		static BYTE parms[] = VTS_UI4;
+		static BYTE parms[] = VTS_BOOL;
 		InvokeHelper(0x60020027, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	unsigned long get_IndicatorBorderColor()
+	unsigned long get_IndicatorColor()
 	{
 		unsigned long result;
 		InvokeHelper(0x60020029, DISPATCH_PROPERTYGET, VT_UI4, (void*)&result, NULL);
 		return result;
 	}
-	void put_IndicatorBorderColor(unsigned long newValue)
+	void put_IndicatorColor(unsigned long newValue)
 	{
 		static BYTE parms[] = VTS_UI4;
 		InvokeHelper(0x60020029, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_IndicatorWidth()
+	unsigned long get_IndicatorBorderColor()
 	{
-		long result;
-		InvokeHelper(0x6002002b, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
+		unsigned long result;
+		InvokeHelper(0x6002002b, DISPATCH_PROPERTYGET, VT_UI4, (void*)&result, NULL);
 		return result;
 	}
-	void put_IndicatorWidth(long newValue)
+	void put_IndicatorBorderColor(unsigned long newValue)
 	{
-		static BYTE parms[] = VTS_I4;
+		static BYTE parms[] = VTS_UI4;
 		InvokeHelper(0x6002002b, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_IndicatorHeight()
+	long get_IndicatorWidth()
 	{
 		long result;
 		InvokeHelper(0x6002002d, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 		return result;
 	}
-	void put_IndicatorHeight(long newValue)
+	void put_IndicatorWidth(long newValue)
 	{
 		static BYTE parms[] = VTS_I4;
 		InvokeHelper(0x6002002d, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	BOOL get_EnableIndicator()
+	long get_IndicatorHeight()
 	{
-		BOOL result;
-		InvokeHelper(0x6002002f, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
+		long result;
+		InvokeHelper(0x6002002f, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 		return result;
 	}
-	void put_EnableIndicator(BOOL newValue)
+	void put_IndicatorHeight(long newValue)
 	{
-		static BYTE parms[] = VTS_BOOL;
+		static BYTE parms[] = VTS_I4;
 		InvokeHelper(0x6002002f, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	BOOL get_IsSimpleIndicator()
+	BOOL get_EnableIndicator()
 	{
 		BOOL result;
 		InvokeHelper(0x60020031, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
-	void put_IsSimpleIndicator(BOOL newValue)
+	void put_EnableIndicator(BOOL newValue)
 	{
 		static BYTE parms[] = VTS_BOOL;
 		InvokeHelper(0x60020031, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
+	BOOL get_IsSimpleIndicator()
+	{
+		BOOL result;
+		InvokeHelper(0x60020033, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
+		return result;
+	}
+	void put_IsSimpleIndicator(BOOL newValue)
+	{
+		static BYTE parms[] = VTS_BOOL;
+		InvokeHelper(0x60020033, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
+	}
 	CString get_IndicatorText()
 	{
 		CString result;
-		InvokeHelper(0x60020033, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x60020035, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	void put_IndicatorText(LPCTSTR newValue)
 	{
 		static BYTE parms[] = VTS_BSTR;
-		InvokeHelper(0x60020033, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
+		InvokeHelper(0x60020035, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
 	BOOL get_IsInverse()
 	{
 		BOOL result;
-		InvokeHelper(0x60020035, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
+		InvokeHelper(0x60020037, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
 	BOOL get_InTopZone()
 	{
 		BOOL result;
-		InvokeHelper(0x60020036, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
+		InvokeHelper(0x60020038, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
 	BOOL get_InBottomZone()
 	{
 		BOOL result;
-		InvokeHelper(0x60020037, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
+		InvokeHelper(0x60020039, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
 	CString ValueToText(float value)
 	{
 		CString result;
 		static BYTE parms[] = VTS_R4;
-		InvokeHelper(0x60020038, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms, value);
+		InvokeHelper(0x6002003a, DISPATCH_METHOD, VT_BSTR, (void*)&result, parms, value);
 		return result;
 	}
 	CString get_TopZoneText()
 	{
 		CString result;
-		InvokeHelper(0x60020039, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x6002003b, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	CString get_BottomZoneText()
 	{
 		CString result;
-		InvokeHelper(0x6002003a, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x6002003c, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	CString get_MiddleZoneText()
 	{
 		CString result;
-		InvokeHelper(0x6002003b, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x6002003d, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	CString get_TopValueText()
 	{
 		CString result;
-		InvokeHelper(0x6002003c, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x6002003e, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	CString get_BottomValueText()
 	{
 		CString result;
-		InvokeHelper(0x6002003d, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x6002003f, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	CString get_CurrentValueText()
 	{
 		CString result;
-		InvokeHelper(0x6002003e, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
+		InvokeHelper(0x60020040, DISPATCH_PROPERTYGET, VT_BSTR, (void*)&result, NULL);
 		return result;
 	}
 	void SetRange(float TopValue, float BottomValue)
 	{
 		static BYTE parms[] = VTS_R4 VTS_R4;
-		InvokeHelper(0x6002003f, DISPATCH_METHOD, VT_EMPTY, NULL, parms, TopValue, BottomValue);
+		InvokeHelper(0x60020041, DISPATCH_METHOD, VT_EMPTY, NULL, parms, TopValue, BottomValue);
 	}
 	void SetZoneValues(float TopZoneValue, float BottomZoneValue)
 	{
 		static BYTE parms[] = VTS_R4 VTS_R4;
-		InvokeHelper(0x60020040, DISPATCH_METHOD, VT_EMPTY, NULL, parms, TopZoneValue, BottomZoneValue);
+		InvokeHelper(0x60020042, DISPATCH_METHOD, VT_EMPTY, NULL, parms, TopZoneValue, BottomZoneValue);
 	}
 	unsigned long get_ForeColor()
 	{
 		unsigned long result;
-		InvokeHelper(0x60020041, DISPATCH_PROPERTYGET, VT_UI4, (void*)&result, NULL);
+		InvokeHelper(0x60020043, DISPATCH_PROPERTYGET, VT_UI4, (void*)&result, NULL);
 		return result;
 	}
 	void put_ForeColor(unsigned long newValue)
 	{
 		static BYTE parms[] = VTS_UI4;
-		InvokeHelper(0x60020041, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
-	}
-	BOOL get_Visible()
-	{
-		BOOL result;
-		InvokeHelper(0x60020043, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
-		return result;
-	}
-	void put_Visible(BOOL newValue)
-	{
-		static BYTE parms[] = VTS_BOOL;
 		InvokeHelper(0x60020043, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	BOOL get_Enabled()
+	BOOL get_Visible()
 	{
 		BOOL result;
 		InvokeHelper(0x60020045, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
-	void put_Enabled(BOOL newValue)
+	void put_Visible(BOOL newValue)
 	{
 		static BYTE parms[] = VTS_BOOL;
 		InvokeHelper(0x60020045, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_Top()
+	BOOL get_Enabled()
 	{
-		long result;
-		InvokeHelper(0x60020047, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
+		BOOL result;
+		InvokeHelper(0x60020047, DISPATCH_PROPERTYGET, VT_BOOL, (void*)&result, NULL);
 		return result;
 	}
-	void put_Top(long newValue)
+	void put_Enabled(BOOL newValue)
 	{
-		static BYTE parms[] = VTS_I4;
+		static BYTE parms[] = VTS_BOOL;
 		InvokeHelper(0x60020047, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_Left()
+	long get_Top()
 	{
 		long result;
 		InvokeHelper(0x60020049, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 		return result;
 	}
-	void put_Left(long newValue)
+	void put_Top(long newValue)
 	{
 		static BYTE parms[] = VTS_I4;
 		InvokeHelper(0x60020049, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_Width()
+	long get_Left()
 	{
 		long result;
 		InvokeHelper(0x6002004b, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 		return result;
 	}
-	void put_Width(long newValue)
+	void put_Left(long newValue)
 	{
 		static BYTE parms[] = VTS_I4;
 		InvokeHelper(0x6002004b, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
 	}
-	long get_Height()
+	long get_Width()
 	{
 		long result;
 		InvokeHelper(0x6002004d, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
 		return result;
 	}
-	void put_Height(long newValue)
+	void put_Width(long newValue)
 	{
 		static BYTE parms[] = VTS_I4;
 		InvokeHelper(0x6002004d, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
+	}
+	long get_Height()
+	{
+		long result;
+		InvokeHelper(0x6002004f, DISPATCH_PROPERTYGET, VT_I4, (void*)&result, NULL);
+		return result;
+	}
+	void put_Height(long newValue)
+	{
+		static BYTE parms[] = VTS_I4;
+		InvokeHelper(0x6002004f, DISPATCH_PROPERTYPUT, VT_EMPTY, NULL, parms, newValue);
+	}
+	void Dispose()
+	{
+		InvokeHelper(0x60020051, DISPATCH_METHOD, VT_EMPTY, NULL, NULL);
 	}
 
 	// ISliderControl properties
