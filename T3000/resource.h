@@ -2177,7 +2177,8 @@
 #define IDC_BUTTON_EXT_CANCLE           2295
 #define IDC_BUTTON_EXT_CANCEL           2295
 #define IDC_CUSTOM1                     2296
-#define IDC_SLIDERCONTROL1              2297
+#define IDC_SLIDERCONTROL1              2301
+#define IDC_SLIDERCONTROL2              2302
 #define IDC_BUTTON_MODEL11              3000
 #define IDC_BUTTON_MODEL1               3000
 #define IDC_BUTTON_MODEL12              3001
@@ -2695,7 +2696,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        670
 #define _APS_NEXT_COMMAND_VALUE         34059
-#define _APS_NEXT_CONTROL_VALUE         2298
+#define _APS_NEXT_CONTROL_VALUE         2303
 #define _APS_NEXT_SYMED_VALUE           320
 #endif
 #endif
