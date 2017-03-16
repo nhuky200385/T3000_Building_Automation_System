@@ -779,7 +779,7 @@ BOOL CT3000App::InitInstance()
 			theApp.GetTooltipManager()->SetTooltipParams(AFX_TOOLTIP_TYPE_ALL,
 				RUNTIME_CLASS(CMFCToolTipCtrl), &ttParams); 
 #if 1
-			hr=CoInitialize(NULL);//
+			hr=CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);//
 			if(FAILED(hr)) 	//
 			{
 				AfxMessageBox(_T("Error Initialize the COM Interface"));//
@@ -1035,6 +1035,32 @@ void CAboutDlg::OnBnClickedButton1()
 	}
 	
 }
+
+typedef void (WINAPI * PFN_EXIT_PROCESS)(UINT uExitCode);
+
+void __cdecl __crtCorExitProcess(int status)
+{
+	HMODULE hmod = GetModuleHandleW(L"mscoree.dll");
+	if (hmod != NULL)
+	{
+		PFN_EXIT_PROCESS pfn = (PFN_EXIT_PROCESS)GetProcAddress(hmod, "CorExitProcess");
+		if (pfn != NULL)
+		{
+			pfn(status);
+		}
+	}
+}
+
+	CT3000App::~CT3000App()
+{
+	try
+	{
+		__crtCorExitProcess(0);
+	}
+	catch (...) {}
+	ExitProcess(0);
+}
+
 int CT3000App::ExitInstance()
 {
 	// TODO: Add your specialized code here and/or call the base class

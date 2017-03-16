@@ -214,6 +214,7 @@ class CT3000App : public CWinAppEx
 
 public:
 	CT3000App();
+	~CT3000App();
 
 // Overrides
 public:
