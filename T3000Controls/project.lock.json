@@ -14,10 +14,10 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\SliderControlLibrary.csproj",
-      "projectName": "SliderControlLibrary",
-      "projectPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\SliderControlLibrary.csproj",
-      "projectJsonPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\SliderControlLibrary\\project.json",
+      "projectUniqueName": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\T3000Controls\\T3000Controls.csproj",
+      "projectName": "T3000Controls",
+      "projectPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\T3000Controls\\T3000Controls.csproj",
+      "projectJsonPath": "C:\\Users\\haven\\OneDrive\\Documents\\Repositories\\ImprovedControls\\T3000Controls\\project.json",
       "projectStyle": "ProjectJson"
     },
     "frameworks": {
