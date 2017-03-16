@@ -8001,8 +8001,8 @@ void CT3000View::FreshCtrl()
     pEdit->SetWindowText(strDate);
 
     m_TempInfoEdit.FieldText(strTemp);
-
-
+	m_daySlider.put_CurrentValue(tempflot);
+	m_nightSlider.put_CurrentValue(tempflot);
 
     if ((product_register_value[7]==PM_TSTAT6)||(product_register_value[7]==PM_TSTAT7)||(product_register_value[7]==PM_TSTAT5i)||(product_register_value[7]==PM_TSTAT8))
     {
